@@ -3,21 +3,22 @@
 This repo is an example of a team project repository that meets all of [the repository requirements](https://www.notion.so/CSC-Hacks-901a62e005c8494fa342e0cc738101ad#da206965e3ed497f9bd6c1ceebd4fac9). Feel free to download / clone this repository as a starting point.
 
 ## Project Description
-*This is intentionally open-ended, but consider that people will be reading this to get a brief understanding of what you're working on.* Some ideas are:
-* We want to accomplish x, y, z, using technologies x, y, z.
-* We want to do this because of x, y, z.
-* Doing this will require learning x, y, z.
-* We anticipate the following challenges: x, y, z.
+*This is intentionally open-ended since we're still deciding! :)
 
 ## Team Information
-Richie Goulazian
-* Pitt CS, 2023
-* rgoulazian@pitt.edu
-* Richie78321 in the CSC Discord
-* Check out my portfolio site! https://rgoulazian.com/
+Alexander Grattan
+* Pitt DNID + CS, 2023
+* alex@grattan.me
+* Fullstack Ninja, Designer, + Content Guru
+* https://www.linkedin.com/in/alexander-grattan/
 
-Ming Wang
-* Pitt CS, 2022
-* zhw78@pitt.edu
-* He smells
-* https://www.linkedin.com/in/zhengmingwang/
+Mario Manrique
+* Pitt Finance + Math, 2022
+* Investor + Mathematical Modeling Master
+* https://www.linkedin.com/in/mario-manrique-b02112150/
+
+
+Olivia
+*Pitt Computer Science + Finance, 2023
+*Olivia in Discord--I love people, invest, and work on cool projects! :)
+*www.linkedin.com/in/oliviawininsky
