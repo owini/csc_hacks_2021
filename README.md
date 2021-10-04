@@ -8,17 +8,15 @@ This repo is an example of a team project repository that meets all of [the repo
 ## Team Information
 Alexander Grattan
 * Pitt DNID + CS, 2023
-* alex@grattan.me
-* Fullstack Ninja, Designer, + Content Guru
+* ajg162@pitt.edu
 * https://www.linkedin.com/in/alexander-grattan/
 
 Mario Manrique
 * Pitt Finance + Math, 2022
-* Investor, Financial Modeling Wizard, and Quant-in-Training
+* mam723@pitt.edu
 * https://www.linkedin.com/in/mario-manrique-b02112150/
 
-
-Olivia
-*Pitt Computer Science + Finance, 2023
-*Olivia in Discord--I love people, invest, and work on cool projects! :)
-*www.linkedin.com/in/oliviawininsky
+Olivia Wininsky
+* Pitt Computer Science + Finance, 2023
+* onw5@pitt.edu
+* https://www.linkedin.com/in/mario-manrique-b02112150/
