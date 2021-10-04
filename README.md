@@ -14,7 +14,7 @@ Alexander Grattan
 
 Mario Manrique
 * Pitt Finance + Math, 2022
-* Investor + Mathematical Modeling Master
+* Investor, Financial Modeling Wizard, and Quant-in-Training
 * https://www.linkedin.com/in/mario-manrique-b02112150/
 
 
