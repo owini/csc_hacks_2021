@@ -16,6 +16,11 @@ Mario Manrique
 * mam723@pitt.edu
 * https://www.linkedin.com/in/mario-manrique-b02112150/
 
+Zach Palmer
+* Pitt Computer Science + Data Science, 2023
+* zop3@pitt.edu
+* https://www.linkedin.com/in/~zach/
+
 Olivia Wininsky
 * Pitt Computer Science + Finance, 2023
 * onw5@pitt.edu
