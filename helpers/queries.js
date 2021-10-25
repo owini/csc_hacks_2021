@@ -26,7 +26,7 @@ export const searchTicker = async (search) => {
 
 export const fetchPriceHistory = async () => {
   const res = await axios.get(
-    `https://api.tdameritrade.com/v1/marketdata/AAPL/pricehistory?apikey=${ameritradeApiKey}`
+    `https://api.tdameritrade.com/v1/marketdata/AAPL/pricehistory?apikey=${ameritradeApiKey}&periodType=month&frequencyType=weekly`
   );
   return res;
 };

@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 
+import * as Plot from "@observablehq/plot";
+import * as d3 from "d3";
+
 import { useQuery } from "react-query";
 import {
   fetchAllTickers,
@@ -14,17 +17,10 @@ import Select from "react-select";
 
 import styles from "../styles/Home.module.css";
 import "twin.macro";
+import Chart from "../components/chart";
 
 export default function Home() {
   const [tickers, setTickers] = useState([]);
-
-  const {
-    data: alltickersData,
-    isLoading: alltickersLoading,
-    refetch: refetchAllTickers,
-  } = useQuery("allTickers", fetchAllTickers, {
-    enabled: false,
-  });
 
   const {
     data: tickersData,
@@ -36,18 +32,16 @@ export default function Home() {
 
   useEffect(() => {
     refetchTickers();
-    refetchAllTickers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (tickersData) setTickers(tickersData.data);
+    if (tickersData) setTickers(tickersData.data.candles);
     console.log(tickers);
     console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
   }, [tickersData]);
 
   console.log(tickers);
-  console.log(alltickersData);
 
   return (
     <div className={styles.container}>
@@ -60,18 +54,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main tw="grid h-screen w-full place-items-center">
-        {!tickersLoading && tickers.results && (
+        {/* {!tickersLoading && tickers.results && (
           <Select
             options={tickers?.results.map((stock) => ({
               label: `${stock.ticker}: ${stock.name}`,
               value: stock.ticker,
             }))}
           />
-        )}
+        )} */}
 
         {/* {tickers.map((ticker) => (
           <div>{ticker}</div>
         ))} */}
+
+        <Chart />
       </main>
     </div>
   );
