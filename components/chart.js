@@ -1,23 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 import * as Plot from "@observablehq/plot";
-import * as d3 from "d3";
 import axios from "axios";
 import "twin.macro";
 
-import { useQuery } from "react-query";
-import {
-  fetchAllTickers,
-  fetchPriceHistory,
-  fetchTickers,
-  searchTicker,
-} from "../helpers/queries";
-
 const Chart = () => {
+  // Ref to add chart to DOM
   const ref = useRef(null);
+  // State to hold stock information and final portfolio graph information (compiled based on userData)
   const [tickers, setTickers] = useState({
     stocks: [],
     final: [],
   });
+  // State to hold stocks chosen by user during the onboarding process
   const [userData, setUserData] = useState([
     {
       ticker: "AAPL",
@@ -28,16 +22,10 @@ const Chart = () => {
       shares: 5,
     },
   ]);
+
   const ameritradeApiKey = process.env.NEXT_PUBLIC_TD_AMERITRADE_API_KEY;
 
-  // const {
-  //   data: tickersData,
-  //   isLoading: tickersLoading,
-  //   refetch: refetchTickers,
-  // } = useQuery("priceHistory", fetchPriceHistory, {
-  //   enabled: false,
-  // });
-
+  // Function to call TD Ameritrade API
   const fetchPriceHistory = async (ticker, period) => {
     let periodType, frequencyType;
 
@@ -64,10 +52,10 @@ const Chart = () => {
   };
 
   useEffect(() => {
-    // refetchTickers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     let { stocks, final } = tickers;
 
+    // For each of the stocks selected by the user, fetch its price history,
+    // add it to the stocks array in state, and compile its information into the final array
     userData.forEach((stock) => {
       fetchPriceHistory(stock.ticker, "month").then((res) => {
         stocks.push(res.data);
@@ -89,17 +77,9 @@ const Chart = () => {
         }
       });
     });
-
-    // for (let i = 0; i < stocks.length; i++) {
-
-    // }
   }, []);
 
-  // useEffect(() => {
-  //   if (tickersData) setTickers(tickersData.data.candles);
-  //   console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
-  // }, [tickersData]);
-
+  // Observable Plot options
   const options = {
     marginLeft: 50,
     marginTop: 50,
@@ -107,11 +87,10 @@ const Chart = () => {
     inset: 6,
     grid: true,
     y: {
-      label: "↑ Apple stock price ($)",
+      label: "↑ Portfolio value ($)",
     },
     x: {
       type: "utc",
-      // domain: [new Date("2021-9-01"), new Date("2021-10-31")],
       label: "Date",
     },
     marks: [
@@ -123,8 +102,6 @@ const Chart = () => {
     ],
     width: 1200,
   };
-
-  console.log(tickers);
 
   useEffect(() => {
     const plot = Plot.plot(options);
