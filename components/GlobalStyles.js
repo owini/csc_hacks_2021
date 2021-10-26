@@ -1,5 +1,5 @@
 import React from "react";
-import tw, { theme, GlobalStyles as BaseStyles } from "twin.macro";
+import { GlobalStyles as BaseStyles } from "twin.macro";
 
 const GlobalStyles = () => (
   <>
