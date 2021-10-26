@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import stocks from "../tickers.json";
 
 import * as Plot from "@observablehq/plot";
 import * as d3 from "d3";
@@ -13,11 +14,13 @@ import {
   searchTicker,
 } from "../helpers/queries";
 
-import Select from "react-select";
+// import Select, { createFilter } from "react-select";
+// import Select from "react-select-virtualized";
 
 import styles from "../styles/Home.module.css";
 import tw, { css } from "twin.macro";
 import Chart from "../components/chart";
+import SearchDropdown from "../components/searchDropdown";
 
 export default function Home() {
   const [tickers, setTickers] = useState([]);
@@ -53,26 +56,15 @@ export default function Home() {
       </Head>
       <main
         css={[
-          tw`grid h-screen w-full place-items-center`,
+          tw`grid h-screen w-full place-items-center overflow-hidden`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
         ]}
       >
-        {/* {!tickersLoading && tickers.results && (
-          <Select
-            options={tickers?.results.map((stock) => ({
-              label: `${stock.ticker}: ${stock.name}`,
-              value: stock.ticker,
-            }))}
-          />
-        )} */}
-
-        {/* {tickers.map((ticker) => (
-          <div>{ticker}</div>
-        ))} */}
-
         <Chart />
+        <SearchDropdown />
+        {/* <Select options={stocks} /> */}
       </main>
     </div>
   );
