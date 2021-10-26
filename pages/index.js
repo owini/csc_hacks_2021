@@ -36,6 +36,13 @@ export default function Home() {
     enabled: false,
   });
 
+  const handleRemoveSelection = (e) => {
+    const filteredData = selection.filter((select) => {
+      return select.ticker !== e.target.value;
+    });
+    setSelection(filteredData);
+  };
+
   useEffect(() => {
     refetchTickers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,6 +54,7 @@ export default function Home() {
     console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
   }, [tickersData]);
 
+  console.log(selection);
   return (
     <div>
       <Head>
@@ -59,18 +67,32 @@ export default function Home() {
       </Head>
       <main
         css={[
-          tw`grid h-screen w-full place-items-center overflow-hidden`,
+          tw`flex justify-center items-center space-x-4 h-screen w-full overflow-hidden`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
         ]}
       >
+        <SearchDropdown selection={selection} setSelection={setSelection} />
+        <div>
+          {selection.map((select, i) => (
+            <div>
+              <div>{select.ticker}</div>
+              <button
+                onClick={handleRemoveSelection}
+                tw="bg-red p-2 rounded w-8 h-8 flex justify-center items-center text-white"
+                value={select.ticker}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
         <Link href="/amount">
           <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
             Go to Amount
           </button>
         </Link>
-        <SearchDropdown selection={selection} setSelection={setSelection} />
         {/* <Select options={stocks} /> */}
       </main>
     </div>
