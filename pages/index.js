@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import stocks from "../tickers.json";
@@ -21,9 +21,12 @@ import styles from "../styles/Home.module.css";
 import tw, { css } from "twin.macro";
 import Chart from "../components/chart";
 import SearchDropdown from "../components/searchDropdown";
+import { UserContext } from "../helpers/UserContext";
 
 export default function Home() {
   const [tickers, setTickers] = useState([]);
+  const { dropdown } = useContext(UserContext);
+  const [selection, setSelection] = dropdown;
 
   const {
     data: tickersData,
@@ -63,7 +66,7 @@ export default function Home() {
         ]}
       >
         <Chart />
-        <SearchDropdown />
+        <SearchDropdown selection={selection} setSelection={setSelection} />
         {/* <Select options={stocks} /> */}
       </main>
     </div>
