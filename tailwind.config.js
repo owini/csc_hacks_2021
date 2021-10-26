@@ -2,9 +2,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ["Work Sans", "sans-serif"],
+      sans: ["Montserrat", "sans-serif"],
       serif: ["Libre Baskerville", "serif"],
-      title: ["Conor Lamb Title"],
+      title: ["Space Mono"],
     },
     extend: {
       colors: {
