@@ -16,7 +16,7 @@ import {
 import Select from "react-select";
 
 import styles from "../styles/Home.module.css";
-import "twin.macro";
+import tw, { css } from "twin.macro";
 import Chart from "../components/chart";
 
 export default function Home() {
@@ -41,8 +41,6 @@ export default function Home() {
     console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
   }, [tickersData]);
 
-  console.log(tickers);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -53,7 +51,14 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main tw="grid h-screen w-full place-items-center">
+      <main
+        css={[
+          tw`grid h-screen w-full place-items-center`,
+          css`
+            background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
+          `,
+        ]}
+      >
         {/* {!tickersLoading && tickers.results && (
           <Select
             options={tickers?.results.map((stock) => ({
