@@ -23,29 +23,56 @@ import SearchDropdown from "../components/searchDropdown";
 import { UserContext } from "../helpers/UserContext";
 
 export default function Amount() {
-  const [tickers, setTickers] = useState([]);
   const { dropdown, stocks } = useContext(UserContext);
   const [selection, setSelection] = dropdown;
   const [portfolio, setPortfolio] = stocks;
+  const [inputs, setInputs] = useState({});
 
-  const {
-    data: tickersData,
-    isLoading: tickersLoading,
-    refetch: refetchTickers,
-  } = useQuery("priceHistory", fetchPriceHistory, {
-    enabled: false,
-  });
+  // selection.forEach((stock) => {
+  //   inputArray.push(null);
+  // });
+
+  // const [inputs, setInputs] = useState(() => {
+
+  //  return inputArray;
+  // });
+
+  const handleInputchange = (e) => {
+    // inputArray[] = e.target.value;
+    setInputs((state) => ({
+      ...state,
+      [e.target.name]: Number.parseInt(e.target.value),
+    }));
+    const filteredIndex = selection.findIndex((stock) => {
+      return stock.ticker == e.target.name;
+    });
+    let portfolioCopy = [...portfolio];
+    let stockCopy = { ...portfolioCopy[filteredIndex] };
+    stockCopy.shares = Number.parseInt(e.target.value);
+    portfolioCopy[filteredIndex] = stockCopy;
+    setPortfolio(portfolioCopy);
+    // setPortfolio((state) => ([...portfolio.slice(0, filteredIndex), {...portfolio[filteredIndex], shares: e.target.value, }, ...]))
+    // filteredObject.shares = e.target.value;
+    // console.log(inputArray);
+    // console.log(selection);
+  };
 
   useEffect(() => {
-    refetchTickers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (selection) {
+      const newPortfolio = [];
+      selection.forEach((stock) => {
+        const newObject = {};
+        newObject.ticker = stock.ticker;
+        newObject.shares = 0;
+        newPortfolio.push(newObject);
+        setInputs((state) => ({ ...state, [stock.ticker]: null }));
+      });
+      setPortfolio(newPortfolio);
+    }
   }, []);
 
-  useEffect(() => {
-    if (tickersData) setTickers(tickersData.data.candles);
-    console.log(tickers);
-    console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
-  }, [tickersData]);
+  console.log(inputs);
+  console.log(portfolio);
 
   return (
     <div>
@@ -65,13 +92,24 @@ export default function Amount() {
           `,
         ]}
       >
-        {/* <Chart /> */}
-        <SearchDropdown selection={selection} setSelection={setSelection} />
-        {selection.map((stock, i) => (
-          <div key={i}>
-            {stock.ticker} - {stock.name}
-          </div>
-        ))}
+        <section tw="container mx-auto space-y-4">
+          {selection.map((stock, i) => (
+            <div
+              key={i}
+              tw="flex justify-between items-center w-full max-w-2xl mx-auto"
+            >
+              <p tw="text-2xl font-bold">
+                {stock.ticker} - {stock.name}
+              </p>
+              <input
+                type="number"
+                name={stock.ticker}
+                value={inputs.ticker}
+                onChange={handleInputchange}
+              />
+            </div>
+          ))}
+        </section>
       </main>
     </div>
   );
