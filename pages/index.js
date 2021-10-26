@@ -65,8 +65,11 @@ export default function Home() {
           `,
         ]}
       >
-        <Chart />
-        <Link href="/amount">Go to Amount</Link>
+        <Link href="/amount">
+          <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
+            Go to Amount
+          </button>
+        </Link>
         <SearchDropdown selection={selection} setSelection={setSelection} />
         {/* <Select options={stocks} /> */}
       </main>
