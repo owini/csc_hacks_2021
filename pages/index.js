@@ -81,7 +81,7 @@ export default function Home() {
             Compare your stock portfolio with the top investors and find key
             insights into their performance.
           </h2>
-          <div tw="lg:flex space-x-4 hidden ">
+          <div tw="lg:flex space-x-4 hidden">
             <Link href="/choose">
               <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
                 Get Started

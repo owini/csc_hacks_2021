@@ -52,12 +52,12 @@ function SearchDropdown({ selection, setSelection }) {
         tw="w-52"
         type="text"
         onClick={() => setDisplay(true)}
-        placeholder="Search..."
+        placeholder="Choose Stocks..."
         value={search}
         onChange={typeSearch}
       />
       {display && (
-        <div tw="absolute w-52 max-height[150px] overflow-y-scroll md:max-height[216px]">
+        <div tw="absolute w-52  overflow-y-scroll max-height[216px]">
           {filteredData.length !== 0 ? (
             filteredData.map((stock, i) => (
               <div
