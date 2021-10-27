@@ -67,7 +67,7 @@ export default function Choose() {
       </Head>
       <main
         css={[
-          tw`flex justify-center relative items-center flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8 h-screen w-full overflow-hidden`,
+          tw`flex justify-center relative items-center flex-col lg:flex-row space-y-8 lg:space-y-0 h-screen w-full overflow-hidden`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
