@@ -57,7 +57,7 @@ function SearchDropdown({ selection, setSelection }) {
         onChange={typeSearch}
       />
       {display && (
-        <div tw="absolute w-52 max-height[150px] overflow-y-scroll md:max-height[200px]">
+        <div tw="absolute w-52 max-height[150px] overflow-y-scroll md:max-height[216px]">
           {filteredData.length !== 0 ? (
             filteredData.map((stock, i) => (
               <div
