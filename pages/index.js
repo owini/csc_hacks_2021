@@ -1,27 +1,14 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import stocks from "../tickers.json";
-import chartImage from "../public/trend-chart.png";
-
-import * as Plot from "@observablehq/plot";
-import * as d3 from "d3";
 
 import { useQuery } from "react-query";
-import {
-  fetchAllTickers,
-  fetchPriceHistory,
-  fetchTickers,
-  searchTicker,
-} from "../helpers/queries";
+import { fetchPriceHistory } from "../helpers/queries";
 
 // import Select, { createFilter } from "react-select";
 // import Select from "react-select-virtualized";
-
+import { motion } from "framer-motion";
 import tw, { css } from "twin.macro";
-import Chart from "../components/chart";
-import SearchDropdown from "../components/searchDropdown";
 import { UserContext } from "../helpers/UserContext";
 
 export default function Home() {
@@ -96,10 +83,15 @@ export default function Home() {
         </div>
 
         {/* <Image src={chartImage} /> */}
-        <img
-          src="./trend-chart.png"
-          tw="max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-4xl absolute top-3/4 lg:top-1/2 -right-16 mt-8 lg:mt-0 lg:-right-48 transform -translate-y-3/4 lg:-translate-y-1/2"
-        />
+        <div tw="transform -translate-y-3/4 lg:-translate-y-1/2 absolute top-3/4 lg:top-1/2 -right-16">
+          <motion.img
+            initial={{ x: 200 }}
+            animate={{ x: 0 }}
+            src="./trend-chart.png"
+            tw="max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-4xl  mt-8 lg:mt-0 lg:-right-48 "
+          />
+        </div>
+
         <div tw="fixed bottom-16 lg:hidden">
           <div tw="space-x-2 md:space-x-4">
             <Link href="/choose">
