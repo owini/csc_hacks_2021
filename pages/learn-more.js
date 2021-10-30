@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import stocks from "../tickers.json";
 
@@ -77,7 +76,6 @@ export default function LearnMore() {
             Get Started
           </button>
         </Link>
-        {/* <Select options={stocks} /> */}
       </main>
     </div>
   );

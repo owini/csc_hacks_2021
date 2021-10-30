@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import stocks from "../tickers.json";
 
@@ -38,7 +37,7 @@ export default function Choose() {
 
   const handleRemoveSelection = (e) => {
     const filteredData = selection.filter((select) => {
-      return select.ticker !== e.target.value;
+      return select.ticker !== e.currentTarget.value;
     });
     setSelection(filteredData);
   };
@@ -54,7 +53,6 @@ export default function Choose() {
     console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
   }, [tickersData]);
 
-  console.log(selection);
   return (
     <div>
       <Head>

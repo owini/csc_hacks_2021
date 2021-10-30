@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import stocks from "../tickers.json";
 
 import * as Plot from "@observablehq/plot";

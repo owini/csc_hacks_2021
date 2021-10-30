@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import stocks from "../tickers.json";
 import axios from "axios";
 
@@ -83,7 +82,6 @@ export default function Portfolio() {
                 stocks[stocks.length - 1].candles[i].close * stock.shares +
                 final[i].close,
             };
-            console.log("Add existing object?" + final);
           }
         }
         if (index === portfolio.length - 1) {
@@ -112,9 +110,6 @@ export default function Portfolio() {
     // console.log(inputArray);
     // console.log(selection);
   };
-
-  console.log(portfolio);
-  console.log(stockData);
 
   return (
     <div>

@@ -79,8 +79,6 @@ const Chart = ({ chartData }) => {
   //   });
   // }, []);
 
-  console.log(chartData);
-
   // Observable Plot options
   const options = {
     marginLeft: 80,
