@@ -22,7 +22,7 @@ export const UserProvider = (props) => {
       windowGlobal.localStorage.setItem("selection", JSON.stringify(selection));
     windowGlobal &&
       windowGlobal.localStorage.setItem("portfolio", JSON.stringify(portfolio));
-  }, [selection]);
+  }, [selection, portfolio]);
 
   return (
     <UserContext.Provider

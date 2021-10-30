@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import stocks from "../tickers.json";
 
 import * as Plot from "@observablehq/plot";
@@ -96,35 +95,60 @@ export default function Amount() {
       </Head>
       <main
         css={[
-          tw`flex h-screen w-full justify-center items-center flex-col gap-4 overflow-hidden`,
+          tw`flex h-screen w-full relative justify-center items-center flex-col gap-4 overflow-hidden`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
         ]}
       >
-        <section tw="container mx-auto space-y-4 text-center">
+        <h1 tw="font-title absolute text-xl px-4 text-center lg:text-3xl top-16 lg:top-32">
+          How many shares do you have?
+        </h1>
+        <section tw="mx-auto space-y-8 px-4 text-left">
           {selection.map((stock, i) => (
             <div
               key={i}
-              tw="flex justify-between items-center w-full max-w-2xl mx-auto"
+              tw="flex justify-between space-x-4 items-center w-full"
             >
-              <p tw="text-2xl font-bold">
+              <p tw="text-lg lg:text-2xl">
                 {stock.ticker} - {stock.name}
               </p>
               <input
                 type="number"
+                tw="w-24"
                 name={stock.ticker}
                 value={inputs.ticker}
                 onChange={handleInputchange}
               />
             </div>
           ))}
-          <Link href="/portfolio">
-            <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
-              Submit
+        </section>
+        <div tw="fixed bottom-16 flex justify-center items-center lg:bottom-24">
+          <Link href="/choose">
+            <button tw="bg-white absolute -left-16 w-8 h-8 flex justify-center items-center rounded-full font-medium border border-gray-100 shadow transform transition hover:scale-105">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-arrow-left"
+              >
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
             </button>
           </Link>
-        </section>
+          <Link href="/portfolio">
+            <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
+              Next
+            </button>
+          </Link>
+        </div>
       </main>
     </div>
   );

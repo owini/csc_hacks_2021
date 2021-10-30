@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import stocks from "../tickers.json";
 import axios from "axios";
 
@@ -83,7 +82,6 @@ export default function Portfolio() {
                 stocks[stocks.length - 1].candles[i].close * stock.shares +
                 final[i].close,
             };
-            console.log("Add existing object?" + final);
           }
         }
         if (index === portfolio.length - 1) {
@@ -92,29 +90,6 @@ export default function Portfolio() {
       });
     });
   }, []);
-
-  const handleInputchange = (e) => {
-    // inputArray[] = e.target.value;
-    setInputs((state) => ({
-      ...state,
-      [e.target.name]: Number.parseInt(e.target.value),
-    }));
-    const filteredIndex = selection.findIndex((stock) => {
-      return stock.ticker == e.target.name;
-    });
-    let portfolioCopy = [...portfolio];
-    let stockCopy = { ...portfolioCopy[filteredIndex] };
-    stockCopy.shares = Number.parseInt(e.target.value);
-    portfolioCopy[filteredIndex] = stockCopy;
-    setPortfolio(portfolioCopy);
-    // setPortfolio((state) => ([...portfolio.slice(0, filteredIndex), {...portfolio[filteredIndex], shares: e.target.value, }, ...]))
-    // filteredObject.shares = e.target.value;
-    // console.log(inputArray);
-    // console.log(selection);
-  };
-
-  console.log(portfolio);
-  console.log(stockData);
 
   return (
     <div>
@@ -152,9 +127,17 @@ export default function Portfolio() {
             </div>
           ))} */}
           {loading ? <div>Loading...</div> : <Chart chartData={stockData} />}
-          <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
-            Analyze
-          </button>
+          <div tw="flex justify-center items-center space-x-2 md:space-x-4">
+            <button tw="rounded-md bg-white w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
+              Analyze
+            </button>
+
+            <Link href="/">
+              <button tw="rounded-md w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
+                Back Home
+              </button>
+            </Link>
+          </div>
         </section>
       </main>
     </div>
