@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import * as Plot from "@observablehq/plot";
+import { Line } from "react-chartjs-2";
+import "chartjs-adapter-date-fns";
 import axios from "axios";
 import "twin.macro";
+import { format } from "date-fns";
 
 const Chart = ({ chartData }) => {
   // Ref to add chart to DOM
@@ -79,41 +82,76 @@ const Chart = ({ chartData }) => {
   //   });
   // }, []);
 
-  // Observable Plot options
-  const options = {
-    marginLeft: 80,
-    marginTop: 50,
-    marginBottom: 50,
-    inset: 6,
-    grid: true,
-    y: {
-      label: "↑ Portfolio value ($)",
-    },
-    x: {
-      type: "utc",
-      label: "Date",
-    },
-    marks: [
-      Plot.line(chartData, {
-        x: "datetime",
-        y: "close",
-        stroke: "#D46C25",
-      }),
+  // Chart.js data
+  const data = {
+    datasets: [
+      {
+        label: "Portfolio Value",
+        data: chartData,
+      },
     ],
-    width: 1200,
   };
 
-  useEffect(() => {
-    const plot = Plot.plot(options);
-    if (ref.current) {
-      if (ref.current.children[0]) {
-        ref.current.children[0].remove();
-      }
-      ref.current.appendChild(plot);
-    }
-  }, [ref, options, chartData]);
+  // Chart.js options
+  const options = {
+    responsive: true,
+    parsing: {
+      xAxisKey: "datetime",
+      yAxisKey: "close",
+    },
+    scales: {
+      x: {
+        type: "time",
+      },
+      y: {
+        ticks: {
+          callback: function (value) {
+            return "$" + value;
+          },
+        },
+      },
+    },
+  };
 
-  return <div ref={ref} tw=""></div>;
+  // Observable Plot options
+  // const options = {
+  //   marginLeft: 80,
+  //   marginTop: 50,
+  //   marginBottom: 50,
+  //   inset: 6,
+  //   grid: true,
+  //   y: {
+  //     label: "↑ Portfolio value ($)",
+  //   },
+  //   x: {
+  //     type: "utc",
+  //     label: "Date",
+  //   },
+  //   marks: [
+  //     Plot.line(chartData, {
+  //       x: "datetime",
+  //       y: "close",
+  //       stroke: "#D46C25",
+  //     }),
+  //   ],
+  //   width: 1200,
+  // };
+
+  console.log(chartData);
+  console.log(String(chartData[0].datetime));
+  console.log(format(new Date(chartData[0].datetime), "MM/dd/yyyy"));
+
+  // useEffect(() => {
+  //   const plot = Plot.plot(options);
+  //   if (ref.current) {
+  //     if (ref.current.children[0]) {
+  //       ref.current.children[0].remove();
+  //     }
+  //     ref.current.appendChild(plot);
+  //   }
+  // }, [ref, options, chartData]);
+
+  return <Line data={data} options={options} />;
 };
 
 export default Chart;
