@@ -91,26 +91,6 @@ export default function Portfolio() {
     });
   }, []);
 
-  const handleInputchange = (e) => {
-    // inputArray[] = e.target.value;
-    setInputs((state) => ({
-      ...state,
-      [e.target.name]: Number.parseInt(e.target.value),
-    }));
-    const filteredIndex = selection.findIndex((stock) => {
-      return stock.ticker == e.target.name;
-    });
-    let portfolioCopy = [...portfolio];
-    let stockCopy = { ...portfolioCopy[filteredIndex] };
-    stockCopy.shares = Number.parseInt(e.target.value);
-    portfolioCopy[filteredIndex] = stockCopy;
-    setPortfolio(portfolioCopy);
-    // setPortfolio((state) => ([...portfolio.slice(0, filteredIndex), {...portfolio[filteredIndex], shares: e.target.value, }, ...]))
-    // filteredObject.shares = e.target.value;
-    // console.log(inputArray);
-    // console.log(selection);
-  };
-
   return (
     <div>
       <Head>
