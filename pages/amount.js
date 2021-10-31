@@ -115,9 +115,9 @@ export default function Amount() {
               </p>
               <input
                 type="number"
-                tw="w-24"
+                tw="w-24 px-4 py-2 rounded-md shadow appearance-none"
                 name={stock.ticker}
-                value={inputs.ticker}
+                value={inputs[stock.ticker]}
                 onChange={handleInputchange}
               />
             </div>
