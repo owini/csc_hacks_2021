@@ -65,7 +65,7 @@ export default function Choose() {
       </Head>
       <main
         css={[
-          tw`flex justify-center relative items-center flex-col lg:flex-row space-y-8 lg:space-y-0 h-screen w-full overflow-hidden`,
+          tw`flex justify-center relative items-center flex-col space-y-8 h-screen w-full overflow-hidden`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
@@ -74,8 +74,9 @@ export default function Choose() {
         <h1 tw="font-title absolute text-xl px-4 text-center lg:text-3xl top-16 lg:top-32">
           What stocks do you have?
         </h1>
+        {/* <div tw="flex justify-between items-center w-full max-w-5xl"> */}
         <SearchDropdown selection={selection} setSelection={setSelection} />
-        <div tw="mx-auto lg:mx-0 space-y-4 px-4">
+        <div tw="mx-auto lg:mx-0 space-y-8 px-4 w-full max-w-lg bg-white p-8 rounded-2xl shadow">
           {selection.map((select, i) => (
             <div tw="flex items-center justify-between space-x-4">
               <p tw="font-bold text-sm md:text-base">
@@ -96,7 +97,6 @@ export default function Choose() {
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="feather feather-x"
                 >
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -105,6 +105,7 @@ export default function Choose() {
             </div>
           ))}
         </div>
+        {/* </div> */}
 
         <div tw="fixed bottom-16 flex justify-center items-center lg:bottom-24">
           <Link href="/">
