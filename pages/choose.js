@@ -71,6 +71,13 @@ export default function Choose() {
           `,
         ]}
       >
+        <div tw="bg-white width[100px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute -top-8 -left-16">
+          <img
+            src="/traders_edge_logo_black.png"
+            alt="Trader's Edge Logo"
+            tw="w-8 lg:w-16 fixed top-10 left-10"
+          />
+        </div>
         <h1 tw="font-title absolute text-xl px-4 text-center lg:text-3xl top-16 lg:top-32">
           What stocks do you have?
         </h1>

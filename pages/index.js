@@ -13,8 +13,9 @@ import { UserContext } from "../helpers/UserContext";
 
 export default function Home() {
   const [tickers, setTickers] = useState([]);
-  const { dropdown } = useContext(UserContext);
+  const { dropdown, stocks } = useContext(UserContext);
   const [selection, setSelection] = dropdown;
+  const [portfolio, setPortfolio] = stocks;
 
   const {
     data: tickersData,
@@ -61,6 +62,11 @@ export default function Home() {
         ]}
       >
         <div tw="bg-white width[400px] lg:width[600px] h-64 lg:h-72 p-8 flex justify-end items-end rounded-3xl absolute -top-24 lg:-top-8 -left-9 lg:-left-12">
+          <img
+            src="/traders_edge_logo_black.png"
+            alt="Trader's Edge Logo"
+            tw="w-8 lg:w-16 fixed top-10 left-10"
+          />
           <h1 tw="text-4xl lg:text-5xl font-title">Trader's Edge</h1>
         </div>
         <div tw="absolute mt-12 lg:mt-8 top-1/4 lg:top-1/2 transform -translate-y-1/4 lg:-translate-y-1/2 left-8 lg:left-32 flex flex-col space-y-8 max-w-sm lg:max-w-xl">
@@ -69,11 +75,19 @@ export default function Home() {
             insights into their performance.
           </h2>
           <div tw="lg:flex space-x-4 hidden">
-            <Link href="/choose">
-              <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
-                Get Started
-              </button>
-            </Link>
+            {portfolio !== undefined && portfolio.length !== 0 ? (
+              <Link href="/portfolio">
+                <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
+                  Go to Portfolio
+                </button>
+              </Link>
+            ) : (
+              <Link href="/choose">
+                <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
+                  Get Started
+                </button>
+              </Link>
+            )}
             <Link href="/learn-more">
               <button tw="rounded-md min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
                 Learn More
@@ -94,11 +108,20 @@ export default function Home() {
 
         <div tw="fixed bottom-16 lg:hidden">
           <div tw="space-x-2 md:space-x-4">
-            <Link href="/choose">
-              <button tw="rounded-md bg-white w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
-                Get Started
-              </button>
-            </Link>
+            {portfolio !== undefined && portfolio.length !== 0 ? (
+              <Link href="/portfolio">
+                <button tw="rounded-md bg-white w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
+                  Go to Portfolio
+                </button>
+              </Link>
+            ) : (
+              <Link href="/choose">
+                <button tw="rounded-md bg-white w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
+                  Get Started
+                </button>
+              </Link>
+            )}
+
             <Link href="/learn-more">
               <button tw="rounded-md w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
                 Learn More
