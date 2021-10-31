@@ -127,14 +127,29 @@ export default function Portfolio() {
             </div>
           ))} */}
           {loading ? <div>Loading...</div> : <Chart chartData={stockData} />}
-          <div tw="flex justify-center items-center space-x-2 md:space-x-4">
-            <button tw="rounded-md bg-white w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
-              Analyze
-            </button>
-
-            <Link href="/">
-              <button tw="rounded-md w-40 md:w-auto md:min-width[180px] py-2 font-medium border-4 border-white shadow transform transition hover:scale-105">
-                Back Home
+          <div tw="flex justify-center items-center relative">
+            <Link href="/amount">
+              <button tw="bg-white mr-4 w-8 h-8 flex justify-center items-center rounded-full font-medium border border-gray-100 shadow transform transition hover:scale-105">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-arrow-left"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </button>
+            </Link>
+            <Link href="/portfolio">
+              <button tw="rounded-md bg-white min-width[180px] py-2 mr-12 font-medium border border-gray-100 shadow transform transition hover:scale-105">
+                Analyze
               </button>
             </Link>
           </div>
