@@ -1,3 +1,72 @@
+// MY TEST SCRAPING CODE BELOW
+
+import { useEffect, useState, useContext } from "react";
+import Head from "next/head";
+import Link from "next/link";
+
+function printArray(arr) {
+  return (
+    <ol>
+      {arr.map(a => (
+        <li key={a}>{a}</li>
+      ))}
+    </ol>
+  );
+}
+
+export default function Home() {
+  const [inputValue, setInputValue] = useState('')
+  const [investorData, setInvestorData] = useState({})
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetch('/api/investors', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ investor: inputValue }),
+    })
+      .then((res) => res.json())
+      .then((scrapedData) => {
+        setInvestorData(scrapedData)
+      })
+  }
+
+  return (
+    <div>
+      <Head>
+        <title>Fetch Investor Data</title>
+      </Head>
+
+      <main>
+        <h1>Fetch Investor Data</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Enter an investor's name:
+            <input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+          </label>
+          <button>Submit</button>
+        </form>
+        <h2>Investor List</h2>
+        {investorData.status === 200 ? (
+          printArray(investorData.investors)
+          // this overwrites the previous function: printArray(investorData.updated)
+        ) : (
+          <p>{investorData.error}</p>
+        )}
+      </main>
+    </div>
+  )
+}
+
+// NORMAL CODE ALEX WROTE BELOW
+
+/*
+
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -82,7 +151,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* <Image src={chartImage} /> */}
+        { <Image src={chartImage} /> }
         <div tw="transform -translate-y-3/4 lg:-translate-y-1/2 absolute top-3/4 lg:top-1/2 -right-16">
           <motion.img
             initial={{ x: 200 }}
@@ -107,8 +176,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* <Select options={stocks} /> */}
+        { <Select options={stocks} /> }
       </main>
     </div>
   );
 }
+*/
