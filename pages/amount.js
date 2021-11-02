@@ -101,14 +101,16 @@ export default function Amount() {
           `,
         ]}
       >
-        <div tw="bg-white width[100px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute -top-8 -left-16">
-          <img
-            src="/traders_edge_logo_black.png"
-            alt="Trader's Edge Logo"
-            tw="w-8 lg:w-16 fixed top-10 left-10"
-          />
+        <div tw="bg-white width[150px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute  -top-8 -left-16">
+          <Link href="/">
+            <img
+              src="/traders_edge_logo_black.png"
+              alt="Trader's Edge Logo"
+              tw="w-8 lg:w-16 fixed top-8 left-8 md:top-10 md:left-10"
+            />
+          </Link>
         </div>
-        <h1 tw="font-title absolute text-xl px-4 text-center lg:text-3xl top-16 lg:top-32">
+        <h1 tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16">
           How many shares do you have?
         </h1>
         <section tw="mx-auto space-y-8 px-4 text-left">

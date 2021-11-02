@@ -65,25 +65,27 @@ export default function Choose() {
       </Head>
       <main
         css={[
-          tw`flex justify-center relative items-center flex-col space-y-8 h-screen w-full overflow-hidden`,
+          tw`flex justify-center relative items-center flex-col h-screen w-full overflow-hidden`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
         ]}
       >
-        <div tw="bg-white width[100px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute -top-8 -left-16">
-          <img
-            src="/traders_edge_logo_black.png"
-            alt="Trader's Edge Logo"
-            tw="w-8 lg:w-16 fixed top-10 left-10"
-          />
+        <div tw="bg-white width[150px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute  -top-8 -left-16">
+          <Link href="/">
+            <img
+              src="/traders_edge_logo_black.png"
+              alt="Trader's Edge Logo"
+              tw="w-8 lg:w-16 fixed top-8 left-8 md:top-10 md:left-10"
+            />
+          </Link>
         </div>
-        <h1 tw="font-title absolute text-xl px-4 text-center lg:text-3xl top-16 lg:top-32">
+        <h1 tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16">
           What stocks do you have?
         </h1>
         {/* <div tw="flex justify-between items-center w-full max-w-5xl"> */}
         <SearchDropdown selection={selection} setSelection={setSelection} />
-        <div tw="mx-auto lg:mx-0 space-y-8 px-4 w-full max-w-lg bg-white p-8 rounded-2xl shadow">
+        <div tw="mx-auto lg:mx-0 space-y-8 px-4 w-full max-w-lg bg-white p-8 mt-8 rounded-2xl shadow">
           {selection.map((select, i) => (
             <div tw="flex items-center justify-between space-x-4">
               <p tw="font-bold text-sm md:text-base">

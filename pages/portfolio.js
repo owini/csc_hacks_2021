@@ -137,12 +137,14 @@ export default function Portfolio() {
           `,
         ]}
       >
-        <div tw="bg-white width[100px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute -top-8 -left-16">
-          <img
-            src="/traders_edge_logo_black.png"
-            alt="Trader's Edge Logo"
-            tw="w-8 lg:w-16 fixed top-10 left-10"
-          />
+        <div tw="bg-white width[150px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute  -top-8 -left-16">
+          <Link href="/">
+            <img
+              src="/traders_edge_logo_black.png"
+              alt="Trader's Edge Logo"
+              tw="w-8 lg:w-16 fixed top-8 left-8 md:top-10 md:left-10"
+            />
+          </Link>
         </div>
         <section tw="container mx-auto space-y-4 text-center">
           {/* {selection.map((stock, i) => (
@@ -164,7 +166,9 @@ export default function Portfolio() {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <Chart chartData={stockData} investorData={investorData} />
+            <div tw="w-full mx-auto max-w-5xl">
+              <Chart chartData={stockData} investorData={investorData} />
+            </div>
           )}
           <div tw="flex justify-center items-center relative">
             <Link href="/amount">

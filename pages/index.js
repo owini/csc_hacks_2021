@@ -61,12 +61,14 @@ export default function Home() {
           `,
         ]}
       >
-        <div tw="bg-white width[400px] lg:width[600px] h-64 lg:h-72 p-8 flex justify-end items-end rounded-3xl absolute -top-24 lg:-top-8 -left-9 lg:-left-12">
-          <img
-            src="/traders_edge_logo_black.png"
-            alt="Trader's Edge Logo"
-            tw="w-8 lg:w-16 fixed top-10 left-10"
-          />
+        <div tw="bg-white width[400px] lg:width[600px] h-64 lg:h-72 p-8 flex justify-end items-end rounded-3xl absolute -top-32 lg:-top-8 -left-9 lg:-left-12">
+          <Link href="/">
+            <img
+              src="/traders_edge_logo_black.png"
+              alt="Trader's Edge Logo"
+              tw="w-8 lg:w-16 fixed top-10 left-10"
+            />
+          </Link>
           <h1 tw="text-4xl lg:text-5xl font-title">Trader's Edge</h1>
         </div>
         <div tw="absolute mt-12 lg:mt-8 top-1/4 lg:top-1/2 transform -translate-y-1/4 lg:-translate-y-1/2 left-8 lg:left-32 flex flex-col space-y-8 max-w-sm lg:max-w-xl">
@@ -102,7 +104,7 @@ export default function Home() {
             initial={{ x: 200 }}
             animate={{ x: 0 }}
             src="./trend-chart.png"
-            tw="max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-4xl  mt-8 lg:mt-0 lg:-right-48 "
+            tw="w-72 md:w-auto md:max-w-lg lg:max-w-2xl xl:max-w-4xl mt-8 lg:mt-0 lg:-right-48 "
           />
         </div>
 
