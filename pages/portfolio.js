@@ -127,7 +127,23 @@ export default function Portfolio() {
           name="description"
           content="Compare your financials against the top investors"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
       </Head>
       <main
         css={[
@@ -142,7 +158,7 @@ export default function Portfolio() {
             <img
               src="/traders_edge_logo_black.png"
               alt="Trader's Edge Logo"
-              tw="w-8 lg:w-16 fixed top-8 left-8 md:top-10 md:left-10"
+              tw="w-8 lg:w-16 fixed top-8 cursor-pointer left-8 md:top-10 md:left-10"
             />
           </Link>
         </div>

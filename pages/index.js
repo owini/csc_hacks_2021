@@ -7,7 +7,7 @@ import { fetchPriceHistory } from "../helpers/queries";
 
 // import Select, { createFilter } from "react-select";
 // import Select from "react-select-virtualized";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import tw, { css } from "twin.macro";
 import { UserContext } from "../helpers/UserContext";
 
@@ -51,7 +51,23 @@ export default function Home() {
           name="description"
           content="Compare your financials against the top investors"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
       </Head>
       <main
         css={[
@@ -62,13 +78,11 @@ export default function Home() {
         ]}
       >
         <div tw="bg-white width[400px] lg:width[600px] h-64 lg:h-72 p-8 flex justify-end items-end rounded-3xl absolute -top-32 lg:-top-8 -left-9 lg:-left-12">
-          <Link href="/">
-            <img
-              src="/traders_edge_logo_black.png"
-              alt="Trader's Edge Logo"
-              tw="w-8 lg:w-16 fixed top-10 left-10"
-            />
-          </Link>
+          <img
+            src="/traders_edge_logo_black.png"
+            alt="Trader's Edge Logo"
+            tw="w-8 lg:w-16 fixed hidden cursor-pointer lg:block top-10 left-10"
+          />
           <h1 tw="text-4xl lg:text-5xl font-title">Trader's Edge</h1>
         </div>
         <div tw="absolute mt-12 lg:mt-8 top-1/4 lg:top-1/2 transform -translate-y-1/4 lg:-translate-y-1/2 left-8 lg:left-32 flex flex-col space-y-8 max-w-sm lg:max-w-xl">
