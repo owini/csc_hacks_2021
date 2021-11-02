@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+/*
 import Head from "next/head";
 import Link from "next/link";
 
@@ -10,8 +11,27 @@ import { fetchPriceHistory } from "../helpers/queries";
 import { motion } from "framer-motion";
 import tw, { css } from "twin.macro";
 import { UserContext } from "../helpers/UserContext";
+*/
 
 export default function Home() {
+  const [inputValue, setInputValue] = useState('')
+  const [response, setResponse] = useState({})
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    fetch('/api/investors', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((investorData) => {
+        setResponse(investorData)
+      })
+  }
+
+  /*
   const [tickers, setTickers] = useState([]);
   const { dropdown } = useContext(UserContext);
   const [selection, setSelection] = dropdown;
@@ -111,4 +131,5 @@ export default function Home() {
       </main>
     </div>
   );
+  */
 }
