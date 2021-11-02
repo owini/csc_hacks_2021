@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import stocks from "../tickers.json";
 
 import * as Plot from "@observablehq/plot";
@@ -54,7 +55,11 @@ export default function LearnMore() {
   }, [tickersData]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Head>
         <title>Trader's Edge</title>
         <meta
@@ -129,6 +134,6 @@ export default function LearnMore() {
           </div>
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 }

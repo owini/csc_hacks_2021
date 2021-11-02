@@ -104,9 +104,13 @@ export default function Choose() {
             layout
             tw="flex justify-center relative items-center flex-col"
           >
-            <h1 tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16">
+            <motion.h1
+              tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16"
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+            >
               What stocks do you have?
-            </h1>
+            </motion.h1>
             <SearchDropdown selection={selection} setSelection={setSelection} />
           </motion.div>
 

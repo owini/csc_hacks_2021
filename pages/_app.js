@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import GlobalStyles from "./../components/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { UserProvider } from "../helpers/UserContext";
+import { AnimatePresence } from "framer-motion";
 
 function MyApp({ Component, pageProps }) {
   const queryClient = new QueryClient();
@@ -11,7 +12,13 @@ function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <UserProvider>
           <GlobalStyles />
-          <Component {...pageProps} />
+          <AnimatePresence
+            exitBeforeEnter
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            <Component {...pageProps} />
+          </AnimatePresence>
         </UserProvider>
       </QueryClientProvider>
     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import stocks from "../tickers.json";
 
 import * as Plot from "@observablehq/plot";
@@ -126,9 +127,13 @@ export default function Amount() {
             />
           </Link>
         </div>
-        <h1 tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16">
+        <motion.h1
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16"
+        >
           How many shares do you have?
-        </h1>
+        </motion.h1>
         <section tw="mx-auto space-y-8 px-4 text-left">
           {selection.map((stock, i) => (
             <div

@@ -44,7 +44,11 @@ export default function Home() {
   }, [tickersData]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Head>
         <title>Trader's Edge</title>
         <meta
@@ -148,6 +152,6 @@ export default function Home() {
 
         {/* <Select options={stocks} /> */}
       </main>
-    </div>
+    </motion.div>
   );
 }

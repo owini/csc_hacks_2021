@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import stocks from "../tickers.json";
 import axios from "axios";
 
@@ -120,7 +121,11 @@ export default function Portfolio() {
   console.log(stockData);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Head>
         <title>Trader's Edge - Portfolio</title>
         <meta
@@ -214,6 +219,6 @@ export default function Portfolio() {
           </div>
         </section>
       </main>
-    </div>
+    </motion.div>
   );
 }
