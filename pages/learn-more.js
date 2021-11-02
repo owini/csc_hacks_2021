@@ -52,58 +52,6 @@ export default function LearnMore() {
     console.log(tickers);
     console.log(process.env.NEXT_PUBLIC_POLYGON_API_KEY);
   }, [tickersData]);
-  */
-
-  // STUFF I'M TESTING BELOW
-
-  const [inputValue, setInputValue] = useState('')
-  const [response, setResponse] = useState({})
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    fetch('/api/investors', {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((investorData) => {
-        setResponse(investorData)
-      })
-  }
-
-  // STUFF I'M TESTING ABOVE
-
-  // css tag for main
-  /*
-    css={[
-      tw`flex justify-center items-center space-x-4 h-screen w-full overflow-hidden`,
-      css`
-        background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
-      `,
-    ]}
-  >
-    <Link href="/amount">
-      <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
-        Get Started
-      </button>
-    </Link>
-    */
-
-    /*
-    <ol>
-      {response.investors.map(investor => (
-        <li>Investor: {investor}</li>
-      ))}
-      {response.dateUpdated.map(date => (
-        <li>Date Updated: {date}</li>
-      ))}
-      {response.links.map(link => (
-        <li>Link: {link}</li>
-      ))}
-    </ol>
-    */
 
   return (
     <div>
@@ -115,7 +63,19 @@ export default function LearnMore() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main
+        css={[
+          tw`flex justify-center items-center space-x-4 h-screen w-full overflow-hidden`,
+          css`
+            background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
+          `,
+        ]}
+      >
+        <Link href="/amount">
+          <button tw="rounded-md bg-white min-width[180px] py-2 font-medium border border-gray-100 shadow transform transition hover:scale-105">
+            Get Started
+          </button>
+        </Link>
       </main>
     </div>
   );
