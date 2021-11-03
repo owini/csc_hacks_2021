@@ -118,7 +118,7 @@ export default function Choose() {
           <AnimatePresence>
             {selection.length != 0 && (
               <motion.div
-                tw="mx-auto lg:mx-0 space-y-8 px-4 w-full max-w-lg bg-white max-h-80 overflow-y-scroll p-8 mt-8 rounded-2xl shadow"
+                tw="mx-auto lg:mx-0 space-y-8 px-4 w-full max-w-lg bg-white max-h-80 overflow-y-auto p-8 mt-8 rounded-2xl shadow"
                 layout="position"
                 exit={{ opacity: 0 }}
               >
