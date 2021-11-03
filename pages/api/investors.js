@@ -54,8 +54,8 @@ export default async (req, res) => { // export the function
       var investors = []
       var updated = []
       // for each entry in the list split into the name and update date
-      // error is somewhere in here ( go line by line )
       for (let i = 0; i < tempList.length - 1; i++) {
+        // deal with a few oddities: \n's and (New Addition)
         let str = ""
         if (i === 0)
           str = tempList[i].substring(1)
@@ -66,38 +66,48 @@ export default async (req, res) => { // export the function
 
         let helperList = str.split(" Updated ")
         investors[i] = helperList[0]
-        //console.log(helperList[0])
         let date = helperList[1]
-        //console.log(date)
         let tokens = date ? date.split(" ") : false
-        //console.log(tokens)
         updated[i] = tokens ? `2021-${months[tokens[1]]}-${tokens[0]}` : false
-        //console.log(updated[i])
       }
 
       // grab investor portfolio URLs
       var links = []
-      const rawLinks = $('a', 'span#port_body')//.attr('href');
+      const rawLinks = $('a', 'span#port_body')
       $(rawLinks).each(function(i, entry) {
         let sop = $(entry).attr('href');
         links[i] = 'https://www.dataroma.com' + sop;  // put local url in array
       });
-      console.log(links)
 
-      /*
+      // grab information from an individual superinvestor's portfolio
       response = await fetch(links[0])
       htmlString = await response.text()
       $ = cheerio.load(htmlString)
-      const table = $('td', 'table#grid')
-      console.log(table)
-      console.log(table.length)
-      holder = []
-      $(table).each(function(i, entry) {
-        holder[i] = $(this).html();
+      const tableQuery = $('td.stock', 'table#grid')
+
+      var tickerLinks = []
+      var tickers = []
+      var shares = []
+      $(tableQuery).each(function(i, entry) {
+        let child = $(entry).children('a') // grab the <a> within the <td>
+        tickerLinks[i] = 'https://www.dataroma.com' + child.attr('href'); // grab the link from the <a>
+        tickers[i] = child.text() // grab the ticker from the <a>
+        let index = tickers[i].indexOf('-')
+        tickers[i] = tickers[i].substring(0, index - 1)
+        shares[i] = $(entry).next().next().text() // traverse down two elements and grab the # of shares
       });
-      console.log(holder)
-      console.log(holder.length)
-      */
+      //console.log(tickerLinks)
+      //console.log(tickerLinks.length)
+      //console.log(tickers)
+      //console.log(tickers.length)
+      //console.log(shares)
+
+      // grab the sector from an individual stock
+      response = await fetch(tickerLinks[0])
+      htmlString = await response.text()
+      $ = cheerio.load(htmlString)
+      const sector = $('td.sect', 'table#t1').next().children('b').text()
+      //console.log(sector)
 
       res.statusCode = 200
       return res.json({
