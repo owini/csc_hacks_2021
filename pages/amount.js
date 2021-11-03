@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import stocks from "../tickers.json";
 
 import * as Plot from "@observablehq/plot";
@@ -91,7 +92,23 @@ export default function Amount() {
           name="description"
           content="Compare your financials against the top investors"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
       </Head>
       <main
         css={[
@@ -101,9 +118,22 @@ export default function Amount() {
           `,
         ]}
       >
-        <h1 tw="font-title absolute text-xl px-4 text-center lg:text-3xl top-16 lg:top-32">
+        <div tw="bg-white width[150px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute  -top-8 -left-16">
+          <Link href="/">
+            <img
+              src="/traders_edge_logo_black.png"
+              alt="Trader's Edge Logo"
+              tw="w-8 lg:w-16 fixed top-8 cursor-pointer left-8 md:top-10 md:left-10"
+            />
+          </Link>
+        </div>
+        <motion.h1
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          tw="font-title  text-xl px-4 text-center lg:text-3xl mb-16"
+        >
           How many shares do you have?
-        </h1>
+        </motion.h1>
         <section tw="mx-auto space-y-8 px-4 text-left">
           {selection.map((stock, i) => (
             <div
@@ -115,9 +145,9 @@ export default function Amount() {
               </p>
               <input
                 type="number"
-                tw="w-24"
+                tw="w-24 px-4 py-2 rounded-md shadow appearance-none"
                 name={stock.ticker}
-                value={inputs.ticker}
+                value={inputs[stock.ticker]}
                 onChange={handleInputchange}
               />
             </div>

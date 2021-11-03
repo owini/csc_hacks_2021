@@ -20,7 +20,7 @@ import {
 // import Select from "react-select-virtualized";
 
 import tw, { css } from "twin.macro";
-import Chart from "../components/chart";
+import PieChart from "../components/pieChart";
 import SearchDropdown from "../components/searchDropdown";
 import { UserContext } from "../helpers/UserContext";
 
@@ -56,70 +56,6 @@ export default function Portfolio() {
     { datetime: 1635483600000, close: 6468 },
   ]);
 
-  const ameritradeApiKey = process.env.NEXT_PUBLIC_TD_AMERITRADE_API_KEY;
-
-  const fetchPriceHistory = async (ticker, period) => {
-    let periodType, frequencyType;
-
-    if (period === "day") {
-      periodType = "day";
-      frequencyType = "minute";
-    }
-
-    if (period === "month") {
-      periodType = "month";
-      frequencyType = "daily";
-    }
-
-    if (period === "year") {
-      periodType = "year";
-      frequencyType = "weekly";
-    }
-
-    const res = await axios.get(
-      `https://api.tdameritrade.com/v1/marketdata/${ticker}/pricehistory?apikey=${ameritradeApiKey}&periodType=${periodType}&frequencyType=${frequencyType}`
-    );
-
-    return res;
-  };
-
-  useEffect(() => {
-    setLoading(true);
-    let stocks = [];
-    let final = [];
-
-    // For each of the stocks selected by the user, fetch its price history,
-    // add it to the stocks array in state, and compile its information into the final array
-    portfolio.forEach((stock, index) => {
-      fetchPriceHistory(stock.ticker, "month").then((res) => {
-        stocks.push(res.data);
-        for (let i = 0; i < stocks[stocks.length - 1].candles.length; i++) {
-          if (final[i] === undefined) {
-            const newObject = {
-              datetime: stocks[stocks.length - 1].candles[i].datetime,
-              close: stocks[stocks.length - 1].candles[i].close * stock.shares,
-            };
-            final.push(newObject);
-            setStockData(final);
-          } else {
-            final[i] = {
-              datetime: stocks[stocks.length - 1].candles[i].datetime,
-              close:
-                stocks[stocks.length - 1].candles[i].close * stock.shares +
-                final[i].close,
-            };
-          }
-        }
-        if (index === portfolio.length - 1) {
-          setStockData(final);
-          setLoading(false);
-        }
-      });
-    });
-  }, []);
-
-  console.log(stockData);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -152,13 +88,13 @@ export default function Portfolio() {
       </Head>
       <main
         css={[
-          tw`flex h-screen w-full justify-center items-center flex-col gap-4 overflow-hidden`,
+          tw`flex w-full justify-center items-center flex-col gap-4 min-h-screen py-24`,
           css`
             background: linear-gradient(243.18deg, #fcf9e9 0%, #fcf1e9 100%);
           `,
         ]}
       >
-        <div tw="bg-white width[150px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl absolute  -top-8 -left-16">
+        <div tw="bg-white width[150px] lg:width[200px] h-32 lg:h-48 p-8 flex justify-end items-end rounded-3xl   -top-8 -left-16 fixed">
           <Link href="/">
             <img
               src="/traders_edge_logo_black.png"
@@ -184,13 +120,9 @@ export default function Portfolio() {
               />
             </div>
           ))} */}
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <div tw="w-full mx-auto max-w-5xl">
-              <Chart chartData={stockData} investorData={investorData} />
-            </div>
-          )}
+          <div tw="w-full mx-auto flex justify-center items-center flex-col gap-8 md:flex-row">
+            <PieChart chartData={stockData} investorData={investorData} />
+          </div>
           <div tw="flex justify-center items-center relative">
             <Link href="/amount">
               <button tw="bg-white mr-4 w-8 h-8 flex justify-center items-center rounded-full font-medium border border-gray-100 shadow transform transition hover:scale-105">
@@ -211,9 +143,9 @@ export default function Portfolio() {
                 </svg>
               </button>
             </Link>
-            <Link href="/analyze">
+            <Link href="/choose">
               <button tw="rounded-md bg-white min-width[180px] py-2 mr-12 font-medium border border-gray-100 shadow transform transition hover:scale-105">
-                Analyze
+                Edit Stocks
               </button>
             </Link>
           </div>

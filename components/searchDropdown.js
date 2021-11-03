@@ -48,8 +48,21 @@ function SearchDropdown({ selection, setSelection }) {
 
   return (
     <div tw="relative z-10" ref={wrapperRef}>
+      <svg
+        tw="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
       <input
-        tw="w-52"
+        tw="w-52 lg:w-64 rounded-md shadow pl-4 pr-8 py-2 appearance-none"
         type="text"
         onClick={() => setDisplay(true)}
         placeholder="Choose Stocks..."
@@ -57,12 +70,12 @@ function SearchDropdown({ selection, setSelection }) {
         onChange={typeSearch}
       />
       {display && (
-        <div tw="absolute w-52  overflow-y-scroll max-height[216px]">
+        <div tw="absolute w-52 lg:w-64 overflow-y-scroll max-height[216px]">
           {filteredData.length !== 0 ? (
             filteredData.map((stock, i) => (
               <div
                 onClick={() => clickSearch(stock)}
-                tw="flex items-center bg-white p-4 border border-gray-400 text-left text-black text-sm"
+                tw="flex items-center bg-white p-4 border border-gray-200 text-left text-black text-sm"
                 key={i}
                 tabIndex="0"
                 value={stock}
@@ -72,7 +85,7 @@ function SearchDropdown({ selection, setSelection }) {
             ))
           ) : (
             <div
-              tw="flex items-center bg-white p-4 border border-gray-400 text-left text-black text-sm"
+              tw="flex items-center bg-white p-4 border border-gray-200 text-left text-black text-sm"
               tabIndex="0"
             >
               No stocks match that ticker

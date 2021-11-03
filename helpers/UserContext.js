@@ -17,18 +17,27 @@ export const UserProvider = (props) => {
       : false;
     return localData ? JSON.parse(localData) : [];
   });
+  const [stockData, setStockData] = useState(() => {
+    const localData = windowGlobal
+      ? windowGlobal.localStorage.getItem("stockData")
+      : false;
+    return localData ? JSON.parse(localData) : [];
+  });
   useEffect(() => {
     windowGlobal &&
       windowGlobal.localStorage.setItem("selection", JSON.stringify(selection));
     windowGlobal &&
       windowGlobal.localStorage.setItem("portfolio", JSON.stringify(portfolio));
-  }, [selection, portfolio]);
+    windowGlobal &&
+      windowGlobal.localStorage.setItem("stockData", JSON.stringify(stockData));
+  }, [selection, portfolio, stockData]);
 
   return (
     <UserContext.Provider
       value={{
         dropdown: [selection, setSelection],
         stocks: [portfolio, setPortfolio],
+        apiResponse: [stockData, setStockData],
       }}
     >
       {props.children}
