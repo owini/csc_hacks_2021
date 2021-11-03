@@ -129,6 +129,7 @@ export default function Choose() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
+                      key={i}
                     >
                       <p tw="font-bold text-sm md:text-base">
                         {select.ticker} - {select.name}

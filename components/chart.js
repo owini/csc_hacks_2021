@@ -18,14 +18,8 @@ const Chart = ({ chartData, investorData }) => {
         {
           label: "Portfolio Value",
           data: chartData,
-          borderColor: g,
-          // borderColor: "#fff",
-          pointBackgroundColor: "#9D8DF1",
-        },
-        {
-          label: "Investor Data",
-          data: investorData,
-          backgroundColor: "FFB81C",
+          backgroundColor: g,
+          fill: true,
           // borderColor: "#fff",
           pointBackgroundColor: "#9D8DF1",
         },
