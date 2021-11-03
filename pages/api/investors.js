@@ -91,14 +91,14 @@ export default async (req, res) => { // export the function
       const tableQuery = $('td.stock', 'table#grid')
 
       var tickerLinks = []
-      var tickers = []
+      //var tickers = []
       var shares = []
       $(tableQuery).each(function(i, entry) {
         let child = $(entry).children('a') // grab the <a> within the <td>
         tickerLinks[i] = 'https://www.dataroma.com' + child.attr('href'); // grab the link from the <a>
-        tickers[i] = child.text() // grab the ticker from the <a>
-        let index = tickers[i].indexOf('-')
-        tickers[i] = tickers[i].substring(0, index - 1)
+        //tickers[i] = child.text() // grab the ticker from the <a>
+        //let index = tickers[i].indexOf('-')
+        //tickers[i] = tickers[i].substring(0, index - 1)
         let shareString = $(entry).next().next().text() // traverse down two elements and grab the # of shares
         shares[i] = parseInt(shareString.replace(/,/g, ''))
       });
