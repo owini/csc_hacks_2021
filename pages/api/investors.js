@@ -46,6 +46,10 @@ export default async (req, res) => { // export the function
       var htmlString = await response.text()
       var $ = cheerio.load(htmlString)
 
+      /* Don't need this for what we are trying to scrape now so I commented it out
+
+      Might be useful later
+
       // grab the giant string consisting of the entire list of superinvestors
       const investorList = $('span#port_body').text()
       // split the string by the year, which we can discard as all dates are 2021;
@@ -70,6 +74,7 @@ export default async (req, res) => { // export the function
         let tokens = date ? date.split(" ") : false
         updated[i] = tokens ? `2021-${months[tokens[1]]}-${tokens[0]}` : false
       }
+      */
 
       // grab investor portfolio URLs
       var links = []
@@ -96,11 +101,6 @@ export default async (req, res) => { // export the function
         tickers[i] = tickers[i].substring(0, index - 1)
         shares[i] = $(entry).next().next().text() // traverse down two elements and grab the # of shares
       });
-      //console.log(tickerLinks)
-      //console.log(tickerLinks.length)
-      //console.log(tickers)
-      //console.log(tickers.length)
-      //console.log(shares)
 
       // grab the sector from an individual stock
       response = await fetch(tickerLinks[0])
@@ -111,11 +111,10 @@ export default async (req, res) => { // export the function
 
       res.statusCode = 200
       return res.json({
-        investors: tempList,
+        investors: links,
         error: "None",
         status: 200,
-        updated: updated,
-        //links: links,
+        tickers: tickers,
       })
     } catch (e) { // handle the potential error that may occur if the data can't be found
       res.statusCode = 404
