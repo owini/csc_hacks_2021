@@ -99,17 +99,27 @@ export default async (req, res) => { // export the function
         tickers[i] = child.text() // grab the ticker from the <a>
         let index = tickers[i].indexOf('-')
         tickers[i] = tickers[i].substring(0, index - 1)
-        shares[i] = $(entry).next().next().text() // traverse down two elements and grab the # of shares
+        let shareString = $(entry).next().next().text() // traverse down two elements and grab the # of shares
+        shares[i] = parseInt(shareString.replace(/,/g, ''))
       });
+      //console.log(shares)
 
       var sectors = []
+      var sharesPerSector = {}
       for (let i = 0; i < tickerLinks.length; i++) {
         // grab the sector from an individual stock
         response = await fetch(tickerLinks[i])
         htmlString = await response.text()
         $ = cheerio.load(htmlString)
-        sectors[i] = $('td.sect', 'table#t1').next().children('b').text()
+        let sector = $('td.sect', 'table#t1').next().children('b').text()
+        if (sector in sharesPerSector) {
+          sharesPerSector[sector] += shares[i]
+        } else {
+          sharesPerSector[sector] = shares[i]
+        }
+        sectors[i] = sector
       }
+      console.log(sharesPerSector)
 
       res.statusCode = 200
       return res.json({
