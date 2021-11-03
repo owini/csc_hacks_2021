@@ -42,33 +42,62 @@ export default async (req, res) => { // export the function
     const investor = req.body.investor // not using currently
 
     try { // try to scrape the list of superinvestors and the URLs for their portfolios
-      const response = await fetch("https://www.dataroma.com/m/home.php")
-      const htmlString = await response.text()
-      const $ = cheerio.load(htmlString)
+      var response = await fetch("https://www.dataroma.com/m/home.php")
+      var htmlString = await response.text()
+      var $ = cheerio.load(htmlString)
 
       // grab the giant string consisting of the entire list of superinvestors
-      const investorList = $('span#port_body')
-        .text()
+      const investorList = $('span#port_body').text()
       // split the string by the year, which we can discard as all dates are 2021;
       // not the best solution but much simpler than a perfect one
       var tempList = investorList.split(" 2021 ")
-      var investors = new Array(tempList.length)
-      var updated = ["hi", "how", "are", "you"]//new Array(tempList.length)
+      var investors = []
+      var updated = []
       // for each entry in the list split into the name and update date
-      /*
-      error is somewhere in here ( go line by line )
-      for (let i = 0; i < tempList.length; i++) {
-        let str = tempList[i]
+      // error is somewhere in here ( go line by line )
+      for (let i = 0; i < tempList.length - 1; i++) {
+        let str = ""
+        if (i === 0)
+          str = tempList[i].substring(1)
+        else if (i === 5)
+          str = tempList[i].substring(14)
+        else
+          str = tempList[i]
+
         let helperList = str.split(" Updated ")
         investors[i] = helperList[0]
+        //console.log(helperList[0])
         let date = helperList[1]
-        let tokens = date.split(" ")
-        updated[i] = `2021-${tokens[1]}-${tokens[0]}`
+        //console.log(date)
+        let tokens = date ? date.split(" ") : false
+        //console.log(tokens)
+        updated[i] = tokens ? `2021-${months[tokens[1]]}-${tokens[0]}` : false
+        //console.log(updated[i])
       }
-      */
+
       // grab investor portfolio URLs
-      //searchContext = "a"
-      //var links = $(searchContext).text()
+      var links = []
+      const rawLinks = $('a', 'span#port_body')//.attr('href');
+      $(rawLinks).each(function(i, entry) {
+        let sop = $(entry).attr('href');
+        links[i] = 'https://www.dataroma.com' + sop;  // put local url in array
+      });
+      console.log(links)
+
+      /*
+      response = await fetch(links[0])
+      htmlString = await response.text()
+      $ = cheerio.load(htmlString)
+      const table = $('td', 'table#grid')
+      console.log(table)
+      console.log(table.length)
+      holder = []
+      $(table).each(function(i, entry) {
+        holder[i] = $(this).html();
+      });
+      console.log(holder)
+      console.log(holder.length)
+      */
 
       res.statusCode = 200
       return res.json({
@@ -82,7 +111,7 @@ export default async (req, res) => { // export the function
       res.statusCode = 404
       return res.json({
         investors: "None",
-        error: e,
+        error: "An exception was thrown",
         status: 404,
       })
     }

@@ -7,8 +7,8 @@ import Link from "next/link";
 function printArray(arr) {
   return (
     <ol>
-      {arr.map(a => (
-        <li key={a}>{a}</li>
+      {arr.map((a, i) => (
+        <li key={i}>{a}</li>
       ))}
     </ol>
   );
@@ -29,6 +29,7 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((scrapedData) => {
+        console.log(scrapedData)
         setInvestorData(scrapedData)
       })
   }
