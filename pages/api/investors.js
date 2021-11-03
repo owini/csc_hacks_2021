@@ -102,19 +102,22 @@ export default async (req, res) => { // export the function
         shares[i] = $(entry).next().next().text() // traverse down two elements and grab the # of shares
       });
 
-      // grab the sector from an individual stock
-      response = await fetch(tickerLinks[0])
-      htmlString = await response.text()
-      $ = cheerio.load(htmlString)
-      const sector = $('td.sect', 'table#t1').next().children('b').text()
-      //console.log(sector)
+      var sectors = []
+      for (let i = 0; i < tickerLinks.length; i++) {
+        // grab the sector from an individual stock
+        response = await fetch(tickerLinks[i])
+        htmlString = await response.text()
+        $ = cheerio.load(htmlString)
+        sectors[i] = $('td.sect', 'table#t1').next().children('b').text()
+      }
 
       res.statusCode = 200
       return res.json({
-        investors: links,
+        sectors: sectors,
+        tickers: tickers,
+        shares: shares,
         error: "None",
         status: 200,
-        tickers: tickers,
       })
     } catch (e) { // handle the potential error that may occur if the data can't be found
       res.statusCode = 404

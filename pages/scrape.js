@@ -54,7 +54,7 @@ export default function Scrape() {
         </form>
         <h2>Investor List</h2>
         {investorData.status === 200 ? (
-          printArray(investorData.investors)
+          printArray(investorData.sectors)
         ) : (
           // this overwrites the previous function: printArray(investorData.updated)
           <p>{investorData.error}</p>
