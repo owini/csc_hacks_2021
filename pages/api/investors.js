@@ -84,8 +84,8 @@ export default async (req, res) => { // export the function
         links[i] = 'https://www.dataroma.com' + sop;  // put local url in array
       });
 
-      var valuePerSector = {}
       //var sharesPerSector = {}
+      var valuePerSector = {}
       // grab information from a subset of superinvestor portfolios
       for (let i = 0; i < 3; i++) {
         response = await fetch(links[i])
@@ -93,20 +93,23 @@ export default async (req, res) => { // export the function
         $ = cheerio.load(htmlString)
         const tableQuery = $('td.stock', 'table#grid')
 
-        var tickerLinks = []
         //var tickers = []
         //var shares = []
+        var tickerLinks = []
         var value = []
         $(tableQuery).each(function(j, entry) {
           let child = $(entry).children('a') // grab the <a> within the <td>
           tickerLinks[j] = 'https://www.dataroma.com' + child.attr('href'); // grab the link from the <a>
+          let valueString = $(entry).next().next().next().next().next().text() // traverse down five elements and grab the total value of the shares
+          value[j] = parseInt(valueString.substring(1).replace(/,/g, ''))
+
+          /* Not needed at the moment
           //tickers[i] = child.text() // grab the ticker from the <a>
           //let index = tickers[i].indexOf('-')
           //tickers[i] = tickers[i].substring(0, index - 1)
           //let shareString = $(entry).next().next().text() // traverse down two elements and grab the # of shares
           //shares[i] = parseInt(shareString.replace(/,/g, ''))
-          let valueString = $(entry).next().next().next().next().next().text() // traverse down five elements and grab the total value of the shares
-          value[j] = parseInt(valueString.substring(1).replace(/,/g, ''))
+          */
         });
 
         for (let k = 0; k < tickerLinks.length; k++) {
