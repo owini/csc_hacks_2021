@@ -41,6 +41,12 @@ export const UserProvider = (props) => {
       : false;
     return localData ? JSON.parse(localData) : [];
   });
+  const [investorData, setInvestorData] = useState(() => {
+    const localData = windowGlobal
+      ? windowGlobal.localStorage.getItem("investorData")
+      : false;
+    return localData ? JSON.parse(localData) : {};
+  });
   useEffect(() => {
     windowGlobal &&
       windowGlobal.localStorage.setItem("selection", JSON.stringify(selection));
@@ -60,7 +66,34 @@ export const UserProvider = (props) => {
         "saveStocks",
         JSON.stringify(saveStocks)
       );
-  }, [selection, portfolio, stockData, userPie, investorPie, saveStocks]);
+    windowGlobal &&
+      windowGlobal.localStorage.setItem(
+        "investorData",
+        JSON.stringify(investorData)
+      );
+  }, [
+    selection,
+    portfolio,
+    stockData,
+    userPie,
+    investorPie,
+    saveStocks,
+    investorData,
+  ]);
+
+  useEffect(() => {
+    fetch("/api/investors", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((scrapedData) => {
+        console.log(scrapedData);
+        setInvestorData(scrapedData.valuePerSector);
+      });
+  }, []);
 
   return (
     <UserContext.Provider
@@ -71,6 +104,7 @@ export const UserProvider = (props) => {
         pieUser: [userPie, setUserPie],
         pieInvestor: [investorPie, setInvestorPie],
         stockSave: [saveStocks, setSaveStocks],
+        dataInvestor: [investorData, setInvestorData],
       }}
     >
       {props.children}

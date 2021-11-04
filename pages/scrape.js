@@ -18,7 +18,9 @@ function printObject(obj) {
   return (
     <ol>
       {Object.keys(obj).map((key, i) => (
-        <li key={i}>{key}: {obj[key]}</li>
+        <li key={i}>
+          {key}: {obj[key]}
+        </li>
       ))}
     </ol>
   );
@@ -31,11 +33,10 @@ export default function Scrape() {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("/api/investors", {
-      method: "post",
+      method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ investor: inputValue }),
     })
       .then((res) => res.json())
       .then((scrapedData) => {

@@ -25,8 +25,15 @@ import SearchDropdown from "../components/searchDropdown";
 import { UserContext } from "../helpers/UserContext";
 
 export default function Portfolio() {
-  const { dropdown, stocks, apiResponse, pieUser, pieInvestor, stockSave } =
-    useContext(UserContext);
+  const {
+    dropdown,
+    stocks,
+    apiResponse,
+    pieUser,
+    pieInvestor,
+    stockSave,
+    dataInvestor,
+  } = useContext(UserContext);
   const [selection, setSelection] = dropdown;
   const [portfolio, setPortfolio] = stocks;
   const [stockData, setStockData] = apiResponse;
@@ -34,31 +41,7 @@ export default function Portfolio() {
   const [investorPie, setInvestorPie] = pieInvestor;
   const [saveStocks, setSaveStocks] = stockSave;
   const [loading, setLoading] = useState(true);
-  const [investorData, setInvestorData] = useState([
-    { datetime: 1632891600000, close: 6334.85 },
-    { datetime: 1632978000000, close: 4292.4 },
-    { datetime: 1633064400000, close: 7202.6 },
-    { datetime: 1633323600000, close: 7299.049999999999 },
-    { datetime: 1633410000000, close: 5304.05 },
-    { datetime: 1633496400000, close: 6333.75 },
-    { datetime: 1633582800000, close: 4200.95 },
-    { datetime: 1633669200000, close: 8656.45 },
-    { datetime: 1633928400000, close: 4387.8 },
-    { datetime: 1634014800000, close: 3443.700000000001 },
-    { datetime: 1634101200000, close: 2164.5 },
-    { datetime: 1634187600000, close: 6529.200000000001 },
-    { datetime: 1634274000000, close: 3463.549999999999 },
-    { datetime: 1634533200000, close: 3416.05 },
-    { datetime: 1634619600000, close: 7508.950000000001 },
-    { datetime: 1634706000000, close: 3421.6 },
-    { datetime: 1634792400000, close: 8464.8 },
-    { datetime: 1634878800000, close: 9135.299999999999 },
-    { datetime: 1635138000000, close: 5310.699999999999 },
-    { datetime: 1635224400000, close: 7685.349999999999 },
-    { datetime: 1635310800000, close: 5477.799999999999 },
-    { datetime: 1635397200000, close: 5310.9 },
-    { datetime: 1635483600000, close: 6468 },
-  ]);
+  const [investorData, setInvestorData] = dataInvestor;
 
   useEffect(() => {
     const polygonApiKey = "xbvp8WYY06ELtZLCmhgEVH1Qn2_cr6gc";
@@ -210,10 +193,10 @@ export default function Portfolio() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-arrow-left"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-arrow-left"
                 >
                   <line x1="19" y1="12" x2="5" y2="12"></line>
                   <polyline points="12 19 5 12 12 5"></polyline>

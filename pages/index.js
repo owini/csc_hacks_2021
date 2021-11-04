@@ -13,9 +13,12 @@ import { UserContext } from "../helpers/UserContext";
 
 export default function Home() {
   const [tickers, setTickers] = useState([]);
-  const { dropdown, stocks } = useContext(UserContext);
+  const { dropdown, stocks, dataInvestor } = useContext(UserContext);
   const [selection, setSelection] = dropdown;
   const [portfolio, setPortfolio] = stocks;
+  const [investorData, setInvestorData] = dataInvestor;
+
+  console.log(investorData);
 
   const {
     data: tickersData,
