@@ -132,6 +132,14 @@ export default async (req, res) => { // export the function
           }
           */
         }
+
+        var sum = 0
+        for (let sector in valuePerSector) {
+          sum += valuePerSector[sector]
+        }
+        for (let sector in valuePerSector) {
+          valuePerSector[sector] /= sum * 100
+        }
       }
 
       res.statusCode = 200
