@@ -86,7 +86,7 @@ const PieChart = ({ chartData, investorData }) => {
       datasets: [
         {
           label: "Portfolio Data",
-          data: pieData,
+          data: chartData,
           backgroundColor: [
             "#ff4f53",
             "#ff654c",
@@ -99,16 +99,7 @@ const PieChart = ({ chartData, investorData }) => {
           ],
         },
       ],
-      labels: [
-        "Consumer Cyclical",
-        "Financials",
-        "Materials",
-        "Services",
-        "Industrials",
-        "Health Care",
-        "Consumer Goods",
-        "Energy",
-      ],
+      labels: chartData.map((object) => object.sector),
     };
   };
 
@@ -151,7 +142,7 @@ const PieChart = ({ chartData, investorData }) => {
   const options = {
     responsive: true,
     parsing: {
-      key: "value",
+      key: "price",
     },
     plugins: {
       title: {

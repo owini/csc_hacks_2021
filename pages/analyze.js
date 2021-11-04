@@ -25,10 +25,14 @@ import SearchDropdown from "../components/searchDropdown";
 import { UserContext } from "../helpers/UserContext";
 
 export default function Portfolio() {
-  const { dropdown, stocks, apiResponse } = useContext(UserContext);
+  const { dropdown, stocks, apiResponse, pieUser, pieInvestor, stockSave } =
+    useContext(UserContext);
   const [selection, setSelection] = dropdown;
   const [portfolio, setPortfolio] = stocks;
   const [stockData, setStockData] = apiResponse;
+  const [userPie, setUserPie] = pieUser;
+  const [investorPie, setInvestorPie] = pieInvestor;
+  const [saveStocks, setSaveStocks] = stockSave;
   const [loading, setLoading] = useState(true);
   const [investorData, setInvestorData] = useState([
     { datetime: 1632891600000, close: 6334.85 },
@@ -55,6 +59,75 @@ export default function Portfolio() {
     { datetime: 1635397200000, close: 5310.9 },
     { datetime: 1635483600000, close: 6468 },
   ]);
+
+  useEffect(() => {
+    const polygonApiKey = "xbvp8WYY06ELtZLCmhgEVH1Qn2_cr6gc";
+
+    let stockArray = [];
+    setLoading(true);
+    const fetchAllTickers = async (i, ticker) => {
+      let res = await fetch(
+        `https://api.polygon.io/v1/meta/symbols/${ticker}/company?apiKey=${polygonApiKey}`
+      );
+
+      res
+        .json()
+        .then((json) => {
+          console.log(json);
+          // for (let i = 0; i < results.length; i++) {
+          //   let newObject = results[i];
+          //   newObject.value = results[i].ticker;
+          //   newObject.label = results[i].ticker;
+          //   stockArray.push(newObject);
+          // }
+          const newObject = {
+            ticker: ticker,
+            sector: json.sector,
+            price:
+              portfolio[i].shares *
+              saveStocks[i].candles[saveStocks[i].candles.length - 1].close,
+          };
+          const filteredIndex = stockArray.findIndex((object) => {
+            return object.sector === json.sector;
+          });
+          console.log(filteredIndex);
+          if (filteredIndex === -1) {
+            const newObject = {
+              sector: json.sector,
+              price:
+                portfolio[i].shares *
+                saveStocks[i].candles[saveStocks[i].candles.length - 1].close,
+            };
+            stockArray.push(newObject);
+          } else {
+            let object = stockArray[filteredIndex];
+            object.price =
+              object.price +
+              portfolio[i].shares *
+                saveStocks[i].candles[saveStocks[i].candles.length - 1].close;
+            stockArray[filteredIndex] = object;
+          }
+          console.log(stockArray);
+          if (i !== portfolio.length - 1) {
+            setTimeout(() => {
+              i = i + 1;
+              console.log(i);
+              fetchAllTickers(i, portfolio[i].ticker);
+            }, 12000);
+          } else {
+            setLoading(false);
+            setUserPie(stockArray);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+
+    fetchAllTickers(0, portfolio[0].ticker);
+  }, []);
+
+  console.log(userPie);
 
   return (
     <motion.div
@@ -121,7 +194,11 @@ export default function Portfolio() {
             </div>
           ))} */}
           <div tw="w-full mx-auto flex justify-center items-center flex-col gap-8 md:flex-row">
-            <PieChart chartData={stockData} investorData={investorData} />
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <PieChart chartData={userPie} investorData={investorData} />
+            )}
           </div>
           <div tw="flex justify-center items-center relative">
             <Link href="/amount">
