@@ -135,12 +135,13 @@ export default async (req, res) => {
           */
         }
 
-        var sum = 0
+        let sum = 0;
         for (let sector in valuePerSector) {
-          sum += valuePerSector[sector]
+          sum += valuePerSector[sector];
         }
         for (let sector in valuePerSector) {
-          valuePerSector[sector] /= sum * 100
+          valuePerSector[sector] /= sum;
+          valuePerSector[sector] *= 100;
         }
       }
 

@@ -143,6 +143,12 @@ const PieChart = ({ chartData, investorData }) => {
       title: {
         display: true,
         text: "Your Sectors",
+        font: {
+          size: 32,
+        },
+      },
+      legend: {
+        display: false,
       },
     },
   };
@@ -151,7 +157,13 @@ const PieChart = ({ chartData, investorData }) => {
     plugins: {
       title: {
         display: true,
-        text: "Investor Sectors",
+        text: "Top Investor Sectors",
+        font: {
+          size: 32,
+        },
+      },
+      legend: {
+        display: false,
       },
     },
   };
