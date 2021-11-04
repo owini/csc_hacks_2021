@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 import "twin.macro";
 import * as Plot from "@observablehq/plot";
 
-export default function Home() {
+export default function Practice() {
   return (
     <div className={styles.container}>
       <Head>

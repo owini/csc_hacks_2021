@@ -7,6 +7,8 @@ const PieChart = ({ chartData, investorData }) => {
   const [delayed, setDelayed] = useState(false);
   defaults.font.family = "Montserrat";
 
+  console.log(investorData);
+
   const pieData = [
     {
       name: "Consumer Cyclical",
@@ -86,7 +88,7 @@ const PieChart = ({ chartData, investorData }) => {
       datasets: [
         {
           label: "Portfolio Data",
-          data: pieData,
+          data: chartData,
           backgroundColor: [
             "#ff4f53",
             "#ff654c",
@@ -99,16 +101,7 @@ const PieChart = ({ chartData, investorData }) => {
           ],
         },
       ],
-      labels: [
-        "Consumer Cyclical",
-        "Financials",
-        "Materials",
-        "Services",
-        "Industrials",
-        "Health Care",
-        "Consumer Goods",
-        "Energy",
-      ],
+      labels: chartData.map((object) => object.sector),
     };
   };
 
@@ -121,7 +114,9 @@ const PieChart = ({ chartData, investorData }) => {
       datasets: [
         {
           label: "Portfolio Data",
-          data: pieData,
+          data: Object.keys(investorData).map((key) => {
+            return investorData[key];
+          }),
           backgroundColor: [
             "#ff4f53",
             "#ff654c",
@@ -134,16 +129,7 @@ const PieChart = ({ chartData, investorData }) => {
           ],
         },
       ],
-      labels: [
-        "Consumer Cyclical",
-        "Financials",
-        "Materials",
-        "Services",
-        "Industrials",
-        "Health Care",
-        "Consumer Goods",
-        "Energy",
-      ],
+      labels: Object.keys(investorData),
     };
   };
 
@@ -151,24 +137,27 @@ const PieChart = ({ chartData, investorData }) => {
   const options = {
     responsive: true,
     parsing: {
-      key: "value",
+      key: "price",
     },
     plugins: {
       title: {
         display: true,
         text: "Your Sectors",
+        font: {
+          size: 32,
+        },
       },
     },
   };
   const options2 = {
     responsive: true,
-    parsing: {
-      key: "value",
-    },
     plugins: {
       title: {
         display: true,
-        text: "Investor Sectors",
+        text: "Top Investor Sectors",
+        font: {
+          size: 32,
+        },
       },
     },
   };

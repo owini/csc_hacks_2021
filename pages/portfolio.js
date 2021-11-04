@@ -25,10 +25,14 @@ import SearchDropdown from "../components/searchDropdown";
 import { UserContext } from "../helpers/UserContext";
 
 export default function Portfolio() {
-  const { dropdown, stocks, apiResponse } = useContext(UserContext);
+  const { dropdown, stocks, apiResponse, pieUser, pieInvestor, stockSave } =
+    useContext(UserContext);
   const [selection, setSelection] = dropdown;
   const [portfolio, setPortfolio] = stocks;
   const [stockData, setStockData] = apiResponse;
+  const [saveStocks, setSaveStocks] = stockSave;
+  const [userPie, setUserPie] = pieUser;
+  const [investorPie, setInvestorPie] = pieInvestor;
   const [loading, setLoading] = useState(true);
   const [investorData, setInvestorData] = useState([
     { datetime: 1632891600000, close: 6334.85 },
@@ -93,6 +97,7 @@ export default function Portfolio() {
     portfolio.forEach((stock, index) => {
       fetchPriceHistory(stock.ticker, "month").then((res) => {
         stocks.push(res.data);
+        console.log(stocks);
         for (let i = 0; i < stocks[stocks.length - 1].candles.length; i++) {
           if (final[i] === undefined) {
             const newObject = {
@@ -112,13 +117,15 @@ export default function Portfolio() {
         }
         if (index === portfolio.length - 1) {
           setStockData(final);
+          setSaveStocks(stocks);
           setLoading(false);
         }
       });
     });
   }, []);
 
-  console.log(stockData);
+  console.log(portfolio);
+  console.log(saveStocks);
 
   return (
     <motion.div

@@ -1,50 +1,52 @@
 // MY TEST SCRAPING CODE BELOW
 
-const cheerio = require('cheerio') // import cheerio module using commonJS
-const cors = require('cors') // import cors to allow fetching the api from a different browser
+const cheerio = require("cheerio"); // import cheerio module using commonJS
+const cors = require("cors"); // import cors to allow fetching the api from a different browser
 
 // initializing the cors middleware
 const cors_inst = cors({
-  methods: ['POST'],
-})
+  methods: ["POST"],
+});
 
 // helper method to wait for a middleware to execute before continuing
 // and to throw an error when an error happens in a middleware
-function runMiddleware (req, res, fn) {
+function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
       if (result instanceof Error) {
-        return reject(result)
+        return reject(result);
       }
-      return resolve(result)
-    })
-  })
+      return resolve(result);
+    });
+  });
 }
 
 var months = {
-    'Jan' : '01',
-    'Feb' : '02',
-    'Mar' : '03',
-    'Apr' : '04',
-    'May' : '05',
-    'Jun' : '06',
-    'Jul' : '07',
-    'Aug' : '08',
-    'Sep' : '09',
-    'Oct' : '10',
-    'Nov' : '11',
-    'Dec' : '12'
-}
+  Jan: "01",
+  Feb: "02",
+  Mar: "03",
+  Apr: "04",
+  May: "05",
+  Jun: "06",
+  Jul: "07",
+  Aug: "08",
+  Sep: "09",
+  Oct: "10",
+  Nov: "11",
+  Dec: "12",
+};
 
-export default async (req, res) => { // export the function
-  await runMiddleware(req, res, cors_inst)
-  if (req.method === 'POST') { // if the request is a post
-    const investor = req.body.investor // not using currently
+export default async (req, res) => {
+  // export the function
+  await runMiddleware(req, res, cors_inst);
+  if (req.method === "POST") {
+    // if the request is a post
 
-    try { // try to scrape the list of superinvestors and the URLs for their portfolios
-      var response = await fetch("https://www.dataroma.com/m/home.php")
-      var htmlString = await response.text()
-      var $ = cheerio.load(htmlString)
+    try {
+      // try to scrape the list of superinvestors and the URLs for their portfolios
+      var response = await fetch("https://www.dataroma.com/m/home.php");
+      var htmlString = await response.text();
+      var $ = cheerio.load(htmlString);
 
       /* Don't need this for what we are trying to scrape now so I commented it out
 
@@ -77,31 +79,31 @@ export default async (req, res) => { // export the function
       */
 
       // grab investor portfolio URLs
-      var links = []
-      const rawLinks = $('a', 'span#port_body')
-      $(rawLinks).each(function(i, entry) {
-        let sop = $(entry).attr('href');
-        links[i] = 'https://www.dataroma.com' + sop;  // put local url in array
+      var links = [];
+      const rawLinks = $("a", "span#port_body");
+      $(rawLinks).each(function (i, entry) {
+        let sop = $(entry).attr("href");
+        links[i] = "https://www.dataroma.com" + sop; // put local url in array
       });
 
       //var sharesPerSector = {}
-      var valuePerSector = {}
+      var valuePerSector = {};
       // grab information from a subset of superinvestor portfolios
       for (let i = 0; i < 3; i++) {
-        response = await fetch(links[i])
-        htmlString = await response.text()
-        $ = cheerio.load(htmlString)
-        const tableQuery = $('td.stock', 'table#grid')
+        response = await fetch(links[i]);
+        htmlString = await response.text();
+        $ = cheerio.load(htmlString);
+        const tableQuery = $("td.stock", "table#grid");
 
         //var tickers = []
         //var shares = []
-        var tickerLinks = []
-        var value = []
-        $(tableQuery).each(function(j, entry) {
-          let child = $(entry).children('a') // grab the <a> within the <td>
-          tickerLinks[j] = 'https://www.dataroma.com' + child.attr('href'); // grab the link from the <a>
-          let valueString = $(entry).next().next().next().next().next().text() // traverse down five elements and grab the total value of the shares
-          value[j] = parseInt(valueString.substring(1).replace(/,/g, ''))
+        var tickerLinks = [];
+        var value = [];
+        $(tableQuery).each(function (j, entry) {
+          let child = $(entry).children("a"); // grab the <a> within the <td>
+          tickerLinks[j] = "https://www.dataroma.com" + child.attr("href"); // grab the link from the <a>
+          let valueString = $(entry).next().next().next().next().next().text(); // traverse down five elements and grab the total value of the shares
+          value[j] = parseInt(valueString.substring(1).replace(/,/g, ""));
 
           /* Not needed at the moment
           //tickers[i] = child.text() // grab the ticker from the <a>
@@ -114,14 +116,14 @@ export default async (req, res) => { // export the function
 
         for (let k = 0; k < tickerLinks.length; k++) {
           // grab the sector from an individual stock
-          response = await fetch(tickerLinks[k])
-          htmlString = await response.text()
-          $ = cheerio.load(htmlString)
-          let sector = $('td.sect', 'table#t1').next().children('b').text()
+          response = await fetch(tickerLinks[k]);
+          htmlString = await response.text();
+          $ = cheerio.load(htmlString);
+          let sector = $("td.sect", "table#t1").next().children("b").text();
           if (sector in valuePerSector) {
-            valuePerSector[sector] += value[k]
+            valuePerSector[sector] += value[k];
           } else {
-            valuePerSector[sector] = value[k]
+            valuePerSector[sector] = value[k];
           }
 
           /* Not needed at the moment
@@ -133,28 +135,30 @@ export default async (req, res) => { // export the function
           */
         }
 
-        var sum = 0
+        let sum = 0;
         for (let sector in valuePerSector) {
-          sum += valuePerSector[sector]
+          sum += valuePerSector[sector];
         }
         for (let sector in valuePerSector) {
-          valuePerSector[sector] /= sum * 100
+          valuePerSector[sector] /= sum;
+          valuePerSector[sector] *= 100;
         }
       }
 
-      res.statusCode = 200
+      res.statusCode = 200;
       return res.json({
         valuePerSector: valuePerSector,
         error: "None",
         status: 200,
-      })
-    } catch (e) { // handle the potential error that may occur if the data can't be found
-      res.statusCode = 404
+      });
+    } catch (e) {
+      // handle the potential error that may occur if the data can't be found
+      res.statusCode = 404;
       return res.json({
         investors: "None",
         error: "An exception was thrown",
         status: 404,
-      })
+      });
     }
   }
-}
+};
