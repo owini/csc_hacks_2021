@@ -84,48 +84,56 @@ export default async (req, res) => { // export the function
         links[i] = 'https://www.dataroma.com' + sop;  // put local url in array
       });
 
-      // grab information from an individual superinvestor's portfolio
-      response = await fetch(links[0])
-      htmlString = await response.text()
-      $ = cheerio.load(htmlString)
-      const tableQuery = $('td.stock', 'table#grid')
-
-      var tickerLinks = []
-      //var tickers = []
-      var shares = []
-      $(tableQuery).each(function(i, entry) {
-        let child = $(entry).children('a') // grab the <a> within the <td>
-        tickerLinks[i] = 'https://www.dataroma.com' + child.attr('href'); // grab the link from the <a>
-        //tickers[i] = child.text() // grab the ticker from the <a>
-        //let index = tickers[i].indexOf('-')
-        //tickers[i] = tickers[i].substring(0, index - 1)
-        let shareString = $(entry).next().next().text() // traverse down two elements and grab the # of shares
-        shares[i] = parseInt(shareString.replace(/,/g, ''))
-      });
-      //console.log(shares)
-
-      var sectors = []
-      var sharesPerSector = {}
-      for (let i = 0; i < tickerLinks.length; i++) {
-        // grab the sector from an individual stock
-        response = await fetch(tickerLinks[i])
+      var valuePerSector = {}
+      //var sharesPerSector = {}
+      // grab information from a subset of superinvestor portfolios
+      for (let i = 0; i < 3; i++) {
+        response = await fetch(links[i])
         htmlString = await response.text()
         $ = cheerio.load(htmlString)
-        let sector = $('td.sect', 'table#t1').next().children('b').text()
-        if (sector in sharesPerSector) {
-          sharesPerSector[sector] += shares[i]
-        } else {
-          sharesPerSector[sector] = shares[i]
+        const tableQuery = $('td.stock', 'table#grid')
+
+        var tickerLinks = []
+        //var tickers = []
+        //var shares = []
+        var value = []
+        $(tableQuery).each(function(j, entry) {
+          let child = $(entry).children('a') // grab the <a> within the <td>
+          tickerLinks[j] = 'https://www.dataroma.com' + child.attr('href'); // grab the link from the <a>
+          //tickers[i] = child.text() // grab the ticker from the <a>
+          //let index = tickers[i].indexOf('-')
+          //tickers[i] = tickers[i].substring(0, index - 1)
+          //let shareString = $(entry).next().next().text() // traverse down two elements and grab the # of shares
+          //shares[i] = parseInt(shareString.replace(/,/g, ''))
+          let valueString = $(entry).next().next().next().next().next().text() // traverse down five elements and grab the total value of the shares
+          value[j] = parseInt(valueString.substring(1).replace(/,/g, ''))
+        });
+
+        for (let k = 0; k < tickerLinks.length; k++) {
+          // grab the sector from an individual stock
+          response = await fetch(tickerLinks[k])
+          htmlString = await response.text()
+          $ = cheerio.load(htmlString)
+          let sector = $('td.sect', 'table#t1').next().children('b').text()
+          if (sector in valuePerSector) {
+            valuePerSector[sector] += value[k]
+          } else {
+            valuePerSector[sector] = value[k]
+          }
+
+          /* Not needed at the moment
+          if (sector in sharesPerSector) {
+            sharesPerSector[sector] += shares[i]
+          } else {
+            sharesPerSector[sector] = shares[i]
+          }
+          */
         }
-        sectors[i] = sector
       }
-      console.log(sharesPerSector)
 
       res.statusCode = 200
       return res.json({
-        sectors: sectors,
-        tickers: tickers,
-        shares: shares,
+        valuePerSector: valuePerSector,
         error: "None",
         status: 200,
       })
