@@ -147,9 +147,6 @@ const PieChart = ({ chartData, investorData }) => {
           size: 32,
         },
       },
-      legend: {
-        display: false,
-      },
     },
   };
   const options2 = {
@@ -161,9 +158,6 @@ const PieChart = ({ chartData, investorData }) => {
         font: {
           size: 32,
         },
-      },
-      legend: {
-        display: false,
       },
     },
   };
