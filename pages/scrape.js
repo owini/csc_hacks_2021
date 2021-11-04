@@ -14,6 +14,16 @@ function printArray(arr) {
   );
 }
 
+function printObject(obj) {
+  return (
+    <ol>
+      {Object.keys(obj).map((key, i) => (
+        <li key={i}>{key}: {obj[key]}</li>
+      ))}
+    </ol>
+  );
+}
+
 export default function Scrape() {
   const [inputValue, setInputValue] = useState("");
   const [investorData, setInvestorData] = useState({});
@@ -54,7 +64,7 @@ export default function Scrape() {
         </form>
         <h2>Investor List</h2>
         {investorData.status === 200 ? (
-          printArray(investorData.sectors)
+          printObject(investorData.valuePerSector)
         ) : (
           // this overwrites the previous function: printArray(investorData.updated)
           <p>{investorData.error}</p>
