@@ -8,7 +8,7 @@ A financial web application where users can compare their stock portfolios to to
 
 ## MVP
 
-Figma Prototype: https://www.figma.com/proto/Di1qh4AvzY2R4hJUxbKmZD/CSC-Hacks-2021?page-id=2187%3A5610&node-id=2193%3A5664&viewport=241%2C48%2C0.64&scaling=scale-down&starting-point-node-id=2193%3A5664
+[Figma Prototype](https://www.figma.com/proto/Di1qh4AvzY2R4hJUxbKmZD/CSC-Hacks-2021?page-id=2187%3A5610&node-id=2193%3A5664&viewport=241%2C48%2C0.64&scaling=scale-down&starting-point-node-id=2193%3A5664)
 
 1. Open Figma prototype using link.
 2. Navigate by clicking the next and back buttons (dropdown also interactive).
