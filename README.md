@@ -36,7 +36,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 [Alexander Grattan](https://agrattan.com/)
 
 
-[Zach Palmer](
+[Zach Palmer](https://github.com/zopalmer14)
 
 
 [Olivia Wininsky](https://github.com/owini)
