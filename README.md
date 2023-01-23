@@ -35,24 +35,9 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 Alexander Grattan
 
-- Pitt DNID + CS, 2023
-- ajg162@pitt.edu
-- https://www.linkedin.com/in/alexander-grattan/
-
-Mario Manrique
-
-- Pitt Finance + Math, 2022
-- mam723@pitt.edu
-- https://www.linkedin.com/in/mario-manrique-b02112150/
 
 Zach Palmer
 
-- Pitt Computer Science + Data Science, 2023
-- zop3@pitt.edu
-- https://www.linkedin.com/in/~zach/
 
 Olivia Wininsky
 
-- Pitt Computer Science + Finance, 2023
-- onw5@pitt.edu
-- https://www.linkedin.com/in/mario-manrique-b02112150/
